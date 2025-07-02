@@ -1,0 +1,84 @@
+import { useState } from "react";
+
+import Popup from "./components/Popup/Popup";
+
+import NewCard from "./components/Popup/components/NewCard/NewCard";
+import EditProfile from "./components/Popup/components/EditProfile/EditProfile";
+import EditAvatar from "./components/Popup/components/EditAvatar/EditAvatar";
+
+function Main() {
+  const [popup, setPopup] = useState(null);
+
+  const newCardPopup = {
+    title: "Novo local",
+    children: <NewCard />,
+  };
+
+  const editProfilePopup = {
+    title: "Editar perfil",
+    children: <EditProfile />,
+  };
+
+  const editAvatarPopup = {
+    title: "Alterar a foto do perfil",
+    children: <EditAvatar />,
+  };
+
+  function handleOpenPopup(popup) {
+    setPopup(popup);
+  }
+
+  function handleClosePopup() {
+    setPopup(null);
+  }
+
+  return (
+    <main className="content page__content">
+      <section className="profile content__profile">
+        <div className="photo profile__photo">
+          {/* foto configurada pelo css, como background-image */}
+          <button
+            aria-label="Alterar foto do perfil"
+            className="photo profile__photo_overlay"
+            type="button"
+            onClick={() => handleOpenPopup(editAvatarPopup)}
+          ></button>
+        </div>
+        <div className="infos profile__infos">
+          <h1 className="name infos__name">Vanessa</h1>
+          <button
+            aria-label="Alterar informações do perfil"
+            className="edit-btn infos__edit-btn"
+            type="button"
+            onClick={() => handleOpenPopup(editProfilePopup)}
+          ></button>
+          <h2 className="about infos__about">
+            Desenvolvedora Web (Full Stack)
+          </h2>
+        </div>
+        <a className="add-btn profile__add-btn" href="#">
+          <div
+            className="img-add-btn 
+            profile__img-add-btn"
+            onClick={() => handleOpenPopup(newCardPopup)}
+          ></div>
+        </a>
+      </section>
+
+      <section className="elements content__elements">
+        <ul className="cards elements__cards">
+          {/* cards carregados do servidor */}
+        </ul>
+      </section>
+
+      {/* se o popup não for nulo e ... */}
+      {popup && (
+        <Popup onClose={handleClosePopup} title={popup.title}>
+          {popup.children}
+        </Popup>
+      )}
+    </main>
+  );
+}
+
+export default Main;
