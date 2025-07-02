@@ -11,34 +11,23 @@
   left: 0;
 }
 
-.popup_closed {
+/*.popup_closed {
   display: none;
-}
+}*/
 
 .popup__title-form {
   font-weight: 900;
   font-size: 24px;
   line-height: 1.21;
   width: 330px;
-  margin: 34px 0 44px;
+  margin: 165px 0 0;
+  z-index: 3;
 }
 
-/*.popup-trash__title-form {
-  width: 358px;
-  margin-bottom: 38px;
-  line-height: 0.96; 
-}
-
-.popup-photo__title-form {
-  margin: 34px 0 54px 36px;
-  line-height: 0.96; 
-  align-self: flex-start;
-}*/
-
-.popup-edt__container,
-.popup-add__container,
-.popup-trash__container,
-.popup-photo__container {
+.popup__container_edt,
+.popup__container_add,
+.popup__container_trash,
+.popup__container_photo {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -49,23 +38,24 @@
   background-color: #ffffff;
   color: #000000;
   z-index: 2;
-  margin-top: 195px;
+  margin-top: 0;
+  justify-content: flex-end;
 }
 
-.popup-trash__container {
+.popup__container_trash {
   height: 181px;
   margin-top: 270px;
 }
 
-.popup-photo__container {
+.popup__container_photo {
   height: 272px;
-  margin-top: 224px;
+  margin-top: 0;
   border-width: 1px;
 }
 
-.popup-edt__input-form,
-.popup-add__input-form,
-.popup-photo__input-form {
+.popup__input-form_edt,
+.popup__input-form_add,
+.popup__input-form_photo {
   width: 358px;
   height: calc(27.26px - (13px + 3px + 1px));
   font-size: 14px;
@@ -77,50 +67,50 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-.popup-edt__input-form:last-of-type,
-.popup-add__input-form:last-of-type {
+.popup__input-form_edt:last-of-type,
+.popup__input-form_add:last-of-type {
   margin-top: 13px;
 }
 
-.popup-edt__input-form:invalid,
-.popup-add__input-form:invalid,
-.popup-photo__input-form:invalid {
+.popup__input-form_edt:invalid,
+.popup__input-form_add:invalid,
+.popup__input-form_photo:invalid {
   border-bottom: 1px solid #ff0000;
 }
 
-.popup-edt__input-form:placeholder-shown,
-.popup-add__input-form:placeholder-shown,
-.popup-photo__input-form:placeholder-shown {
+.popup__input-form_edt:placeholder-shown,
+.popup__input-form_add:placeholder-shown,
+.popup__input-form_photo:placeholder-shown {
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-.popup-add__input-form:placeholder-shown:last-of-type {
+.popup__input-form_add:placeholder-shown:last-of-type {
   margin-top: 30px;
 }
 
-.popup-edt__input-form:first-of-type:valid {
+.popup__input-form_edt:first-of-type:valid {
   margin-bottom: calc(29.74px - 13px);
 }
 
-.popup-add__input-form:first-of-type:valid {
+.popup__input-form_add:first-of-type:valid {
   margin-bottom: calc(29.74px - 13px - 5px);
 }
 
-.popup-edt__input-form:last-of-type:valid {
+.popup__input-form_edt:last-of-type:valid {
   margin-bottom: calc(48px - 31.34px);
 }
 
-.popup-edt__input-form::placeholder,
-.popup-add__input-form::placeholder,
-.popup-photo__input-form::placeholder {
+.popup__input-form_edt::placeholder,
+.popup__input-form_add::placeholder,
+.popup__input-form_photo::placeholder {
   color: #c4c4c4;
   font-size: 14px;
   line-height: 100%;
 }
 
-.popup-edt__input-error,
-.popup-add__input-error,
-.popup-photo__input-error {
+.popup__input-error_edt,
+.popup__input-error_add,
+.popup__input-error_photo {
   width: 358px;
   height: 17px;
   font-size: 12px;
@@ -131,10 +121,10 @@
   padding-top: 5px;
 }
 
-.popup-edt__btn-form,
-.popup-add__btn-form,
-.popup-trash__btn-form,
-.popup-photo__btn-form {
+.popup__btn-form_edt,
+.popup__btn-form_add,
+.popup__btn-form_trash,
+.popup__btn-form_photo {
   margin-top: 31.34px;
   margin-bottom: 36.51px;
   width: 358px;
@@ -151,43 +141,40 @@
   padding: 4px 0 0;
 }
 
-.popup-trash__btn-form,
-.popup-photo__btn-form {
+.popup__btn-form_trash,
+.popup__btn-form_photo {
   margin-top: 0;
   margin-bottom: 36px;
   min-height: 50px;
   max-height: 50px;
-  line-height: 1.22; /* arredondado */
+  line-height: 1.22;
 }
 
-.popup-photo__btn-form {
+.popup__btn-form_photo {
   margin-top: 48px;
 }
 
-.popup-edt__btn-form:hover,
-.popup-add__btn-form:hover,
-.popup-trash__btn-form:hover,
-.popup-photo__btn-form:hover {
+.popup__btn-form_edt:hover,
+.popup__btn-form_add:hover,
+.popup__btn-form_trash:hover,
+.popup__btn-form_photo:hover {
   opacity: 0.8;
   cursor: pointer;
 }
 
-.popup-edt__btn-form_disabled,
-.popup-add__btn-form_disabled,
-.popup-photo__btn-form_disabled {
+.popup__btn-form_disabled {
   opacity: 0.2;
   color: #000000;
   border: 1px solid #000000;
   background-color: #ffffff;
 }
 
-.popup-add__btn-form_disabled {
+/* Aplique este estilo somente ao elemento que tiver ambas as classes ao mesmo tempo. */
+.popup__btn-form_add.popup__btn-form_disabled {
   margin-top: 40px;
 }
 
-.popup-edt__btn-form_disabled:hover,
-.popup-add__btn-form_disabled:hover,
-.popup-photo__btn-form_disabled:hover {
+.popup__btn-form_disabled:hover {
   cursor: not-allowed;
 }
 
@@ -198,15 +185,13 @@
   background-position: center;
   background-size: contain;
   margin-top: 146.72px;
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
 }
-
-/*.popup-trash__icon-close-btn {
-  margin-top: 223px;
-}*/
 
 .popup__icon-close-btn:hover {
   opacity: 0.6;
-  cursor: pointer;
 }
 
 @media screen and (min-width: 641px) and (max-width: 960px) {
@@ -219,6 +204,9 @@
   .popup__icon-close-btn {
     width: 36px;
     height: 36px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
   }
 }
 
@@ -232,82 +220,74 @@
   .popup__title-form {
     font-size: 18px;
     width: 238px;
-    margin: 25px 0 66px;
+    margin: 83px 0 0px 15px;
   }
 
-  /*.popup-trash__title-form {
-    margin-bottom: 29px;
-  }
-
-  .popup-photo__title-form {
-    margin: 35px 0 40px 23px;
-  }*/
-
-  .popup-edt__container,
-  .popup-add__container,
-  .popup-trash__container,
-  .popup-photo__container {
+  .popup__container_edt,
+  .popup__container_add,
+  .popup__container_trash,
+  .popup__container_photo {
     width: 282px;
     height: 322px;
-    margin-top: 123px;
+    margin-top: 0;
     position: relative;
     left: 15px;
   }
 
-  .popup-trash__container {
+  .popup__container_trash {
     height: 145px;
   }
 
-  .popup-photo__container {
+  .popup__container_photo {
     height: 230px;
   }
 
-  .popup-edt__input-form,
-  .popup-add__input-form,
-  .popup-photo__input-form {
+  .popup__input-form_edt,
+  .popup__input-form_add,
+  .popup__input-form_photo {
     width: 238px;
   }
 
-  .popup-edt__input-form:last-of-type,
-  .popup-add__input-form:last-of-type {
+  .popup__input-form_edt:last-of-type,
+  .popup__input-form_add:last-of-type {
     margin-top: 13px;
   }
 
-  .popup-edt__input-form:invalid,
-  .popup-add__input-form:invalid,
-  .popup-photo__input-form:invalid {
+  .popup__input-form_edt:invalid,
+  .popup__input-form_add:invalid,
+  .popup__input-form_photo:invalid {
     border-bottom: 1px solid #ff0000;
   }
 
-  .popup-edt__input-form:placeholder-shown,
-  .popup-add__input-form:placeholder-shown,
-  .popup-photo__input-form:placeholder-shown {
+  .popup__input-form_edt:placeholder-shown,
+  .popup__input-form_add:placeholder-shown,
+  .popup__input-form_photo:placeholder-shown {
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   }
 
-  .popup-edt__input-form:first-of-type:valid,
-  .popup-add__input-form:first-of-type:valid {
+  .popup__input-form_edt:first-of-type:valid,
+  .popup__input-form_add:first-of-type:valid {
     margin-bottom: calc(29.74px - 13px - 5px);
   }
 
-  .popup-edt__input-form:last-of-type:valid,
-  .popup-add__input-form:last-of-type:valid {
+  .popup__input-form_edt:last-of-type:valid,
+  .popup__input-form_add:last-of-type:valid {
     margin-bottom: calc(48px - 31.34px - 5px);
   }
 
-  .popup-edt__input-error,
-  .popup-add__input-error,
-  .popup-photo__input-error {
+  .popup__input-error_edt,
+  .popup__input-error_add,
+  .popup__input-error_photo {
     width: 238px;
     font-size: 10px;
     line-height: 100%;
     margin-left: 22px;
   }
 
-  .popup-edt__btn-form,
-  .popup-add__btn-form,
-  .popup-trash__btn-form,
-  .popup-photo__btn-form {
+  .popup__btn-form_edt,
+  .popup__btn-form_add,
+  .popup__btn-form_trash,
+  .popup__btn-form_photo {
     margin-top: 31.34px;
     margin-bottom: 25px;
     width: 238px;
@@ -315,7 +295,7 @@
     font-size: 14px;
   }
 
-  .popup-trash__btn-form {
+  .popup__btn-form_trash {
     margin-top: 0;
   }
 
@@ -325,6 +305,9 @@
     background-image: url(../images/close-icon_26.svg);
     margin-top: 72.62px;
     position: relative;
-    right: 15px;
+    right: 10px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
   }
 }

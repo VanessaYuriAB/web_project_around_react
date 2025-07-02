@@ -1,13 +1,13 @@
 function NewCard() {
   return (
     <form
-      className="popup-add__container"
+      className="popup__container_add"
       name="add"
       id="new-card-form"
       noValidate
     >
       <input
-        className="popup-add__input-form"
+        className="popup__input-form_add"
         id="place-input"
         name="place"
         type="text"
@@ -17,11 +17,11 @@ function NewCard() {
         required
       />
       <span
-        className="popup-add__input-error place-input-error"
+        className="popup__input-error_add place-input-error"
         id="card-name-error"
       ></span>
       <input
-        className="popup-add__input-form"
+        className="popup__input-form_add"
         id="link-input"
         name="link"
         type="url"
@@ -29,11 +29,11 @@ function NewCard() {
         required
       />
       <span
-        className="popup-add__input-error link-input-error"
+        className="popup__input-error_add link-input-error"
         id="card-link-error"
       ></span>
       <button
-        className="popup-add__btn-form"
+        className="popup__btn-form_add"
         type="submit"
         aria-label="Adicionar cartão"
       >

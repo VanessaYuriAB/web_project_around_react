@@ -1,13 +1,13 @@
 function EditAvatar() {
   return (
     <form
-      className="popup-photo__container"
+      className="popup__container_photo"
       name="photo"
       id="edit-avatar-form"
       noValidate
     >
       <input
-        className="popup-photo__input-form"
+        className="popup__input-form_photo"
         id="photo-input"
         name="photo"
         type="url"
@@ -15,11 +15,11 @@ function EditAvatar() {
         required
       />
       <span
-        className="popup-photo__input-error photo-input-error"
+        className="popup__input-error_photo photo-input-error"
         id="avatar-photo-error"
       ></span>
       <button
-        className="popup-photo__btn-form"
+        className="popup__btn-form_photo"
         type="submit"
         aria-label="Atualizar foto de perfil"
       >

@@ -29,11 +29,13 @@
   background-image: url(../images/edit-btn.svg);
   background-position: center;
   background-size: contain;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 .infos__edit-btn:hover {
   opacity: 0.6;
-  cursor: pointer;
 }
 
 @media screen and (min-width: 471px) and (max-width: 640px) {
@@ -60,7 +62,7 @@
     font-size: 14px;
   }
 
-  .infos__img-edit-btn {
+  .infos__edit-btn {
     width: 18px;
     height: 18px;
   }
