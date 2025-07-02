@@ -53,16 +53,15 @@ function Main() {
             onClick={() => handleOpenPopup(editProfilePopup)}
           ></button>
           <h2 className="about infos__about">
-            Desenvolvedora Web (Full Stack)
+            Desenvolvedora web (full-stack)
           </h2>
         </div>
-        <a className="add-btn profile__add-btn" href="#">
-          <div
-            className="img-add-btn 
-            profile__img-add-btn"
-            onClick={() => handleOpenPopup(newCardPopup)}
-          ></div>
-        </a>
+        <button
+          aria-label="Adicionar novo cartão"
+          type="button"
+          className="add-btn profile__add-btn"
+          onClick={() => handleOpenPopup(newCardPopup)}
+        ></button>
       </section>
 
       <section className="elements content__elements">
@@ -71,7 +70,7 @@ function Main() {
         </ul>
       </section>
 
-      {/* se o popup não for nulo e ... */}
+      {/* se o popup não for nulo, o componente será renderizado na tela */}
       {popup && (
         <Popup onClose={handleClosePopup} title={popup.title}>
           {popup.children}

@@ -1,13 +1,13 @@
 function EditProfile() {
   return (
     <form
-      className="popup-edt__container"
+      className="popup__container_edt"
       name="edt"
       id="edit-profile-form"
       noValidate
     >
       <input
-        className="popup-edt__input-form"
+        className="popup__input-form_edt"
         id="name-input"
         name="name"
         type="text"
@@ -17,11 +17,11 @@ function EditProfile() {
         required
       />
       <span
-        className="popup-edt__input-error name-input-error"
+        className="popup__input-error_edt name-input-error"
         id="profile-name-error"
       ></span>
       <input
-        className="popup-edt__input-form"
+        className="popup__input-form_edt"
         id="about-input"
         name="about"
         type="text"
@@ -31,11 +31,11 @@ function EditProfile() {
         required
       />
       <span
-        className="popup-edt__input-error about-input-error"
+        className="popup__input-error_edt about-input-error"
         id="profile-about-error"
       ></span>
       <button
-        className="popup-edt__btn-form"
+        className="popup__btn-form_edt"
         type="submit"
         aria-label="Atualizar infos do perfil"
       >
