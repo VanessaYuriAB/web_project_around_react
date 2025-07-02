@@ -1,26 +1,26 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import Popup from "./components/Popup/Popup";
+import Popup from './components/Popup/Popup';
 
-import NewCard from "./components/Popup/components/NewCard/NewCard";
-import EditProfile from "./components/Popup/components/EditProfile/EditProfile";
-import EditAvatar from "./components/Popup/components/EditAvatar/EditAvatar";
+import NewCard from './components/Popup/components/NewCard/NewCard';
+import EditProfile from './components/Popup/components/EditProfile/EditProfile';
+import EditAvatar from './components/Popup/components/EditAvatar/EditAvatar';
 
 function Main() {
   const [popup, setPopup] = useState(null);
 
   const newCardPopup = {
-    title: "Novo local",
+    title: 'Novo local',
     children: <NewCard />,
   };
 
   const editProfilePopup = {
-    title: "Editar perfil",
+    title: 'Editar perfil',
     children: <EditProfile />,
   };
 
   const editAvatarPopup = {
-    title: "Alterar a foto do perfil",
+    title: 'Alterar a foto do perfil',
     children: <EditAvatar />,
   };
 

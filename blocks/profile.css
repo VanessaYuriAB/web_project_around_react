@@ -39,8 +39,8 @@
   gap: 16px 18px;
   align-items: baseline;
   grid-template-areas:
-    "name edit-btn"
-    "about about";
+    'name edit-btn'
+    'about about';
 }
 
 .profile__add-btn {
