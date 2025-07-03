@@ -15,15 +15,6 @@
   display: none;
 }*/
 
-.popup__title-form {
-  font-weight: 900;
-  font-size: 24px;
-  line-height: 1.21;
-  width: 330px;
-  margin: 165px 0 0;
-  z-index: 3;
-}
-
 .popup__container_edt,
 .popup__container_add,
 .popup__container_trash,
@@ -38,8 +29,7 @@
   background-color: #ffffff;
   color: #000000;
   z-index: 2;
-  margin-top: 0;
-  justify-content: flex-end;
+  margin-top: 195px;
 }
 
 .popup__container_trash {
@@ -49,8 +39,31 @@
 
 .popup__container_photo {
   height: 272px;
-  margin-top: 0;
+  margin-top: 224px;
   border-width: 1px;
+}
+
+.popup__title-form_add,
+.popup__title-form_edt,
+.popup__title-form_trash,
+.popup__title-form_photo {
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 1.21;
+  width: 330px;
+  margin: 34px 0 44px;
+}
+
+.popup__title-form_trash {
+  width: 358px;
+  margin-bottom: 38px;
+  line-height: 0.96;
+}
+
+.popup__title-form_photo {
+  margin: 34px 0 54px 36px;
+  line-height: 0.96;
+  align-self: flex-start;
 }
 
 .popup__input-form_edt,
@@ -190,6 +203,11 @@
   border: none;
 }
 
+/* verificar sobre nome da classe quando for configurar este popup
+.popup__icon-close-btn_trash {
+  margin-top: 223px;
+}*/
+
 .popup__icon-close-btn:hover {
   opacity: 0.6;
 }
@@ -217,19 +235,13 @@
     max-width: 640px;
   }
 
-  .popup__title-form {
-    font-size: 18px;
-    width: 238px;
-    margin: 83px 0 0px 15px;
-  }
-
   .popup__container_edt,
   .popup__container_add,
   .popup__container_trash,
   .popup__container_photo {
     width: 282px;
     height: 322px;
-    margin-top: 0;
+    margin-top: 123px;
     position: relative;
     left: 15px;
   }
@@ -240,6 +252,24 @@
 
   .popup__container_photo {
     height: 230px;
+  }
+
+  .popup__title-form_add,
+  .popup__title-form_edt,
+  .popup__title-form_trash,
+  .popup__title-form_photo {
+    font-size: 18px;
+    width: 238px;
+    margin: 25px 0 66px;
+  }
+
+  /* verificar sobre nome da classe quando for configurar este popup
+  .popup__title-form_trash {
+    margin-bottom: 29px;
+  }*/
+
+  .popup__title-form_photo {
+    margin: 35px 0 40px 23px;
   }
 
   .popup__input-form_edt,
@@ -303,7 +333,7 @@
     width: 26px;
     height: 26px;
     background-image: url(../images/close-icon_26.svg);
-    margin-top: 72.62px;
+    margin-top: 82.62px;
     position: relative;
     right: 10px;
     background-repeat: no-repeat;

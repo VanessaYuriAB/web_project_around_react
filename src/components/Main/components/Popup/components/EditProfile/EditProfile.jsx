@@ -6,6 +6,7 @@ function EditProfile() {
       id="edit-profile-form"
       noValidate
     >
+      <h3 className="popup__title-form_edt">Editar perfil</h3>
       <input
         className="popup__input-form_edt"
         id="name-input"
