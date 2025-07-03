@@ -43,6 +43,10 @@
   border-width: 1px;
 }
 
+.popup__figure_card {
+  margin: 90px 0 0 40px;
+}
+
 .popup__title-form_add,
 .popup__title-form_edt,
 .popup__title-form_trash,
@@ -134,6 +138,17 @@
   padding-top: 5px;
 }
 
+.popup__image_card {
+  max-width: 75vw;
+  max-height: 75vh;
+  margin-bottom: 10px;
+}
+
+.popup__caption_card {
+  font-size: 12px;
+  line-height: 100%;
+}
+
 .popup__btn-form_edt,
 .popup__btn-form_add,
 .popup__btn-form_trash,
@@ -203,6 +218,10 @@
   border: none;
 }
 
+.popup__icon-close-btn_card {
+  margin-top: 41px;
+}
+
 /* verificar sobre nome da classe quando for configurar este popup
 .popup__icon-close-btn_trash {
   margin-top: 223px;
@@ -217,6 +236,10 @@
 
   .popup {
     max-width: 960px;
+  }
+
+  .popup__figure_card {
+    margin: 90px 0 0 36px;
   }
 
   .popup__icon-close-btn {
@@ -252,6 +275,10 @@
 
   .popup__container_photo {
     height: 230px;
+  }
+
+  .popup__figure_card {
+    margin: 136px 0 0 26px;
   }
 
   .popup__title-form_add,
@@ -339,5 +366,11 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
+  }
+
+  .popup__icon-close-btn_card {
+    width: 30px;
+    height: 30px;
+    margin-top: 100px;
   }
 }
