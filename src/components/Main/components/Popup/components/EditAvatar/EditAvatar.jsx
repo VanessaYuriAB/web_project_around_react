@@ -6,6 +6,7 @@ function EditAvatar() {
       id="edit-avatar-form"
       noValidate
     >
+      <h3 className="popup__title-form_photo">Alterar a foto do perfil</h3>
       <input
         className="popup__input-form_photo"
         id="photo-input"

@@ -10,17 +10,14 @@ function Main() {
   const [popup, setPopup] = useState(null);
 
   const newCardPopup = {
-    title: 'Novo local',
     children: <NewCard />,
   };
 
   const editProfilePopup = {
-    title: 'Editar perfil',
     children: <EditProfile />,
   };
 
   const editAvatarPopup = {
-    title: 'Alterar a foto do perfil',
     children: <EditAvatar />,
   };
 
@@ -71,11 +68,7 @@ function Main() {
       </section>
 
       {/* se o popup não for nulo, o componente será renderizado na tela */}
-      {popup && (
-        <Popup onClose={handleClosePopup} title={popup.title}>
-          {popup.children}
-        </Popup>
-      )}
+      {popup && <Popup onClose={handleClosePopup}>{popup.children}</Popup>}
     </main>
   );
 }

@@ -6,6 +6,7 @@ function NewCard() {
       id="new-card-form"
       noValidate
     >
+      <h3 className="popup__title-form_add">Novo local</h3>
       <input
         className="popup__input-form_add"
         id="place-input"
