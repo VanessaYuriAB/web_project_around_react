@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useContext } from 'react';
 
 import Popup from './components/Popup/Popup';
 
@@ -8,27 +8,29 @@ import EditAvatar from './components/Popup/components/EditAvatar/EditAvatar';
 
 import Card from './components/Card/Card';
 
-const cards = [
-  {
-    isLiked: false,
-    _id: '5d1f0611d321eb4bdcd707dd',
-    name: 'Yosemite Valley',
-    link: 'https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg',
-    owner: '5d1f0611d321eb4bdcd707dd',
-    createdAt: '2019-07-05T08:10:57.741Z',
-  },
-  {
-    isLiked: false,
-    _id: '5d1f064ed321eb4bdcd707de',
-    name: 'Lake Louise',
-    link: 'https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lake-louise.jpg',
-    owner: '5d1f0611d321eb4bdcd707dd',
-    createdAt: '2019-07-05T08:11:58.324Z',
-  },
-];
+import myApi from '../../utils/api.js';
+
+/*
+Linha comentada para prevenir duplicação ao enviar cards iniciais. Executar apenas uma vez, quando necessário enviar os dados para a API.
+// envia meus cards iniciais
+// myApi.submitMyNewCards();
+*/
 
 function Main() {
   const [popup, setPopup] = useState(null);
+
+  const [cards, setCards] = useState([]);
+
+  useEffect(() => {
+    myApi
+      .getInitialCards()
+      .then((initialCards) => {
+        setCards(initialCards);
+      })
+      .catch((err) => {
+        console.error(`Erro ao obter os cartões iniciais: ${err}`);
+      });
+  }, []);
 
   const newCardPopup = {
     children: <NewCard />,
