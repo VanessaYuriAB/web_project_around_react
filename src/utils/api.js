@@ -46,15 +46,8 @@ class Api {
     }).then((res) => this._checkResponse(res));
   }
 
-  // captura cards iniciais do usuário do servidor
-  getInitialCards() {
-    return fetch(`${this._baseUrl}/cards/`, {
-      headers: this._headers,
-    }).then((res) => this._checkResponse(res));
-  }
-
   // envia meus cards iniciais ao usuário do servidor
-  submitMyNewCards() {
+  createInitialCards() {
     const promises = myCards.map((card) => {
       return fetch(`${this._baseUrl}/cards/`, {
         method: 'POST',
@@ -69,8 +62,15 @@ class Api {
     return Promise.all(promises); // retorna uma Promise que só resolve quando todos forem enviados
   }
 
+  // captura cards iniciais do usuário do servidor
+  getInitialCards() {
+    return fetch(`${this._baseUrl}/cards/`, {
+      headers: this._headers,
+    }).then((res) => this._checkResponse(res));
+  }
+
   // atualiza infos do perfil
-  submitInfosProfile(dataProfile) {
+  updateProfileInfo(dataProfile) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
@@ -82,7 +82,7 @@ class Api {
   }
 
   // atualiza foto do perfil
-  submitPhotoProfile(dataPhoto) {
+  updateProfileAvatar(dataPhoto) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
@@ -93,7 +93,7 @@ class Api {
   }
 
   // adiciona um novo cartão no usuário do servidor
-  submitNewCard(dataCard) {
+  createNewCard(dataCard) {
     return fetch(`${this._baseUrl}/cards/`, {
       method: 'POST',
       headers: this._headers,
@@ -135,7 +135,7 @@ class Api {
   }
 
   // captura cartões somente após carregar as informações do usuário no servidor
-  getServerInfosAndCardsinPromiseAll() {
+  getServerUserAndCards() {
     return Promise.all([this.getServerUserInfos(), this.getInitialCards()]);
   }
 }

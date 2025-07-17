@@ -15,7 +15,7 @@ import CurrentUserContext from '../../contexts/CurrentUserContext.js';
 /*
 Linha comentada para prevenir duplicação ao enviar cards iniciais. Executar apenas uma vez, quando necessário enviar os dados para a API.
 // envia meus cards iniciais
-// myApi.submitMyNewCards();
+// myApi.createInitialCards();
 */
 
 function Main() {
