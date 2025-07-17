@@ -12,6 +12,11 @@ function Card({ card, handleOpenPopup, onCardLike }) {
   // Cria um objeto para o popup de imagem, que será passado para a função handleOpenPopup, o popup de imagem recebe o card atual para exibir a imagem e o nome, a função handleOpenPopup é chamada quando a imagem do cartão é clicada
   const imagePopup = { children: <ImagePopup card={card} /> };
 
+  // Função para lidar com o clique no botão de curtir/descurtir cartão: ela chama a função onCardLike, que é passada como prop, passando o cartão atual como argumento; isso permite que o componente pai (Main) gerencie a lógica de curtir/descurtir o cartão e atualize o estado dos cartões; a função onCardLike é definida no componente Main e é responsável por enviar a solicitação para a API
+  function handleLikeClick() {
+    onCardLike(card);
+  }
+
   return (
     <li className="card">
       <img
@@ -33,7 +38,7 @@ function Card({ card, handleOpenPopup, onCardLike }) {
           className={cardLikeButtonClassName}
           type="button"
           aria-label="Curtir/descurtir cartão"
-          onClick={() => onCardLike(card)}
+          onClick={handleLikeClick}
         ></button>
       </div>
     </li>
