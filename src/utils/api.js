@@ -121,9 +121,9 @@ class Api {
   }
 
   // altera o status de curtir/descurtir um cartão
-  toggleLikeCard(cardId, isLiked) {
+  toggleLikeCard(cardId, shouldLike) {
     // se o cartão não foi curtido, curta-o, caso contrário, descurta
-    return !isLiked ? this._likeCard(cardId) : this._unlikeCard(cardId);
+    return shouldLike ? this._likeCard(cardId) : this._unlikeCard(cardId);
   }
 
   // deleta um cartão do servidor

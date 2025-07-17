@@ -57,6 +57,28 @@ function Main() {
     setPopup(null);
   }
 
+  // Função para lidar com o evento de curtir/descurtir um cartão: ela recebe o cartão atual como argumento e verifica se ele já foi curtido ou não, se o cartão já foi curtido, a função envia uma solicitação para a API para remover o like, caso contrário, envia uma solicitação para adicionar o like - após a solicitação, atualiza o estado dos cartões com os dados retornados pela API
+
+  async function handleCardLike(card) {
+    // Verifica, mais um vez, se o cartão já foi curtido - é verificado no componente Card, mas é uma boa prática verificar novamente aqui
+    const isLiked = card.isLiked;
+
+    // Envia uma solicitação para a API e obtém os dados do cartão atualizados
+    await myApi
+      // !isLiked = ação inversa do estado atual de curtida - corresponde à shouldLike no método toggleLikeCard
+      .toggleLikeCard(card._id, !isLiked)
+      .then((updatedCard) => {
+        setCards((stateCards) =>
+          stateCards.map((currentCardInMap) =>
+            currentCardInMap._id === card._id ? updatedCard : currentCardInMap
+          )
+        );
+      })
+      .catch((error) =>
+        console.error(`Erro ao curtir/descurtir o cartão: ${error}`)
+      );
+  }
+
   return (
     <main className="content page__content">
       <section className="profile content__profile">
@@ -103,6 +125,7 @@ function Main() {
               key={card._id}
               card={card}
               handleOpenPopup={handleOpenPopup}
+              onCardLike={handleCardLike}
             />
           ))}
         </ul>
