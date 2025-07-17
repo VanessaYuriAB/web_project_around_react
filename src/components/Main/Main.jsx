@@ -58,7 +58,6 @@ function Main() {
   }
 
   // Função para lidar com o evento de curtir/descurtir um cartão: ela recebe o cartão atual como argumento e verifica se ele já foi curtido ou não, se o cartão já foi curtido, a função envia uma solicitação para a API para remover o like, caso contrário, envia uma solicitação para adicionar o like - após a solicitação, atualiza o estado dos cartões com os dados retornados pela API
-
   async function handleCardLike(card) {
     // Verifica, mais um vez, se o cartão já foi curtido - é verificado no componente Card, mas é uma boa prática verificar novamente aqui
     const isLiked = card.isLiked;
@@ -77,6 +76,20 @@ function Main() {
       .catch((error) =>
         console.error(`Erro ao curtir/descurtir o cartão: ${error}`)
       );
+  }
+
+  // Função para lidar com a exclusão de um cartão: ela recebe o cartão atual como argumento e envia uma solicitação para a API para excluir o cartão, após a solicitação, atualiza o estado dos cartões removendo o cartão excluído
+  async function handleCardDelete(card) {
+    await myApi
+      .deleteCard(card._id)
+      .then(() => {
+        setCards((stateCards) =>
+          stateCards.filter(
+            (currentCardInFilter) => currentCardInFilter._id !== card._id
+          )
+        );
+      })
+      .catch((error) => console.error(`Erro ao excluir o cartão: ${error}`));
   }
 
   return (
@@ -126,6 +139,7 @@ function Main() {
               card={card}
               handleOpenPopup={handleOpenPopup}
               onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
             />
           ))}
         </ul>

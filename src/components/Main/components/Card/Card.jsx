@@ -1,6 +1,6 @@
 import ImagePopup from '../Popup/components/ImagePopup/ImagePopup';
 
-function Card({ card, handleOpenPopup, onCardLike }) {
+function Card({ card, handleOpenPopup, onCardLike, onCardDelete }) {
   // Desestruturação do objeto card para obter as propriedades necessárias
   const { name, link, isLiked } = card;
 
@@ -17,6 +17,11 @@ function Card({ card, handleOpenPopup, onCardLike }) {
     onCardLike(card);
   }
 
+  // Função para lidar com o clique no botão de deletar cartão: ela chama a função onCardDelete, que é passada como prop, passando o cartão atual como argumento; isso permite que o componente pai (Main) gerencie a lógica de deletar o cartão e atualize o estado dos cartões; a função onCardDelete é definida no componente Main e é responsável por enviar a solicitação para a API
+  function handleDeleteClick() {
+    onCardDelete(card);
+  }
+
   return (
     <li className="card">
       <img
@@ -30,6 +35,7 @@ function Card({ card, handleOpenPopup, onCardLike }) {
         id="tsh-model"
         type="button"
         aria-label="Deletar cartão"
+        onClick={handleDeleteClick}
       ></button>
       <div className="text card__text">
         <h3 className="name card__name">{name}</h3>
