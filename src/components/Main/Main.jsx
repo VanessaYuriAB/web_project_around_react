@@ -18,14 +18,13 @@ Linha comentada para prevenir duplicação ao enviar cards iniciais. Executar ap
 // myApi.createInitialCards();
 */
 
-function Main() {
-  const [popup, setPopup] = useState(null);
-
+function Main({ popup, onOpenPopup, onClosePopup }) {
   const [cards, setCards] = useState([]);
 
   // Obtém o usuário atual do contexto: assina o contexto CurrentUserContext
-  const currentUser = useContext(CurrentUserContext);
+  const { currentUser } = useContext(CurrentUserContext);
 
+  // Obtém os cartões iniciais do servidor quando o componente é montado e atualiza o estado dos cartões com os dados retornados pela API
   useEffect(() => {
     myApi
       .getInitialCards()
@@ -42,20 +41,12 @@ function Main() {
   };
 
   const editProfilePopup = {
-    children: <EditProfile />,
+    children: <EditProfile handleClosePopup={onClosePopup} />,
   };
 
   const editAvatarPopup = {
     children: <EditAvatar />,
   };
-
-  function handleOpenPopup(popup) {
-    setPopup(popup);
-  }
-
-  function handleClosePopup() {
-    setPopup(null);
-  }
 
   // Função para lidar com o evento de curtir/descurtir um cartão: ela recebe o cartão atual como argumento e verifica se ele já foi curtido ou não, se o cartão já foi curtido, a função envia uma solicitação para a API para remover o like, caso contrário, envia uma solicitação para adicionar o like - após a solicitação, atualiza o estado dos cartões com os dados retornados pela API
   async function handleCardLike(card) {
@@ -109,7 +100,7 @@ function Main() {
             aria-label="Alterar foto do perfil"
             className="photo profile__photo_overlay"
             type="button"
-            onClick={() => handleOpenPopup(editAvatarPopup)}
+            onClick={() => onOpenPopup(editAvatarPopup)}
           ></button>
         </div>
         <div className="infos profile__infos">
@@ -119,7 +110,7 @@ function Main() {
             aria-label="Alterar informações do perfil"
             className="edit-btn infos__edit-btn"
             type="button"
-            onClick={() => handleOpenPopup(editProfilePopup)}
+            onClick={() => onOpenPopup(editProfilePopup)}
           ></button>
           <h2 className="about infos__about">{currentUser.about}</h2>
         </div>
@@ -127,7 +118,7 @@ function Main() {
           aria-label="Adicionar novo cartão"
           type="button"
           className="add-btn profile__add-btn"
-          onClick={() => handleOpenPopup(newCardPopup)}
+          onClick={() => onOpenPopup(newCardPopup)}
         ></button>
       </section>
 
@@ -137,7 +128,7 @@ function Main() {
             <Card
               key={card._id}
               card={card}
-              handleOpenPopup={handleOpenPopup}
+              handleOpenPopup={onOpenPopup}
               onCardLike={handleCardLike}
               onCardDelete={handleCardDelete}
             />
@@ -146,7 +137,7 @@ function Main() {
       </section>
 
       {/* se o popup não for nulo, o componente será renderizado na tela */}
-      {popup && <Popup onClose={handleClosePopup}>{popup.children}</Popup>}
+      {popup && <Popup onClose={onClosePopup}>{popup.children}</Popup>}
     </main>
   );
 }

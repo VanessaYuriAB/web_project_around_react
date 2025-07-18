@@ -1,6 +1,12 @@
 import ImagePopup from '../Popup/components/ImagePopup/ImagePopup';
 
+import { useContext } from 'react';
+
+import CurrentUserContext from '../../../../contexts/CurrentUserContext.js';
+
 function Card({ card, handleOpenPopup, onCardLike, onCardDelete }) {
+  const { currentUser } = useContext(CurrentUserContext);
+
   // Desestruturação do objeto card para obter as propriedades necessárias
   const { name, link, isLiked } = card;
 

@@ -1,9 +1,10 @@
 import { useState, useContext } from 'react';
 import CurrentUserContext from '../../../../../../contexts/CurrentUserContext.js';
 
-function EditProfile() {
+function EditProfile({ handleClosePopup }) {
   // Obtém o usuário atual do contexto: assina o contexto CurrentUserContext, permitindo que o componente acesse as informações do usuário atual, como nome e descrição
-  const currentUser = useContext(CurrentUserContext);
+  const userContext = useContext(CurrentUserContext); // extrai o contexto do usuário atual
+  const { currentUser, handleUpdateUser } = userContext; // extrai o usuário atual e a função de atualização do usuário do contexto
 
   // Define o estado inicial do formulário com os valores do usuário atual, garantindo que o formulário seja preenchido com as informações corretas quando aberto
   const [name, setName] = useState(currentUser.name); // adiciona variável de estado para nome e usa o nome do usuário atual como valor inicial do estado
@@ -17,12 +18,23 @@ function EditProfile() {
     setAbout(event.target.value); // atualiza a descrição (about) quando a entrada for alterada
   }
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      await handleUpdateUser({ name, about }); // chama a função de atualização do usuário com os valores atuais do formulário, passando o nome e a descrição atualizados em forma simplificada (shorthand) de criar objetos quando os nomes da propriedade e da variável são os mesmos
+      handleClosePopup(); // fecha o popup após a atualização, só fecha se a atualização for bem-sucedida
+    } catch (error) {
+      console.error(`Erro ao atualizar o perfil: ${error}`);
+    }
+  };
+
   return (
     <form
       className="popup__container_edt"
       name="edt"
       id="edit-profile-form"
       noValidate
+      onSubmit={handleSubmit} // define o manipulador de envio do formulário para chamar a função handleSubmit
     >
       <h3 className="popup__title-form_edt">Editar perfil</h3>
       <input
