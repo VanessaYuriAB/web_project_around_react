@@ -45,7 +45,7 @@ function Main({ popup, onOpenPopup, onClosePopup }) {
   };
 
   const editAvatarPopup = {
-    children: <EditAvatar />,
+    children: <EditAvatar handleClosePopup={onClosePopup} />,
   };
 
   // Função para lidar com o evento de curtir/descurtir um cartão: ela recebe o cartão atual como argumento e verifica se ele já foi curtido ou não, se o cartão já foi curtido, a função envia uma solicitação para a API para remover o like, caso contrário, envia uma solicitação para adicionar o like - após a solicitação, atualiza o estado dos cartões com os dados retornados pela API
@@ -90,12 +90,9 @@ function Main({ popup, onOpenPopup, onClosePopup }) {
           {/* foto configurada pelo css, como background-image, antes de conectar com as infos da API*/}
           <img
             src={currentUser.avatar}
-            alt="Foto do perfil"
+            alt="____Foto____"
             className="profile__photo_img"
           />
-
-          {/* Tag img adicionada para a foto de perfil, conectada com a API. Verificar configurações após ajustar envio de POST para dados de perfil. */}
-
           <button
             aria-label="Alterar foto do perfil"
             className="photo profile__photo_overlay"

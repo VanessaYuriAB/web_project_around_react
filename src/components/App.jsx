@@ -34,6 +34,16 @@ function App() {
     return updatedUserData; // devolve os dados para quem chamou a função (handleSubmit no componente EditProfile)
   };
 
+  // Função para atualizar a foto do perfil, retorna uma Promise para que o tratamento de erro seja feito por quem chamou
+  const handleUpdateAvatar = async (avatarData) => {
+    const updatedAvatarData = await myApi.updateProfileAvatar(avatarData);
+    setCurrentUser((prevUser) => ({
+      ...prevUser, // mantém os dados anteriores do usuário
+      avatar: updatedAvatarData.avatar, // atualiza apenas a foto do perfil
+    }));
+    return updatedAvatarData; // devolve os dados para quem chamou a função (handleSubmit no componente EditAvatar)
+  };
+
   // Função para abrir o popup atual
   const handleOpenPopup = (popup) => {
     setPopup(popup);
@@ -46,7 +56,9 @@ function App() {
 
   return (
     // Provedor do contexto para compartilhar o usuário atual com os componentes filhos
-    <CurrentUserContext.Provider value={{ currentUser, handleUpdateUser }}>
+    <CurrentUserContext.Provider
+      value={{ currentUser, handleUpdateUser, handleUpdateAvatar }}
+    >
       <div className="page">
         <Header />
         <Main
