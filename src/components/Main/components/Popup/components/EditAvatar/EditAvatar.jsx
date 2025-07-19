@@ -37,7 +37,6 @@ function EditAvatar({ handleClosePopup }) {
         placeholder="Link da foto"
         required
         ref={avatarInputRef} // vincula a referência ao input, permitindo acessar o valor do input diretamente
-        defaultValue={currentUser.avatar || ''} // usa o valor atual do avatar do usuário como valor inicial do input, garantindo que o input seja preenchido com a foto atual quando aberto
         aria-label="Link da foto do perfil"
       />
       <span
