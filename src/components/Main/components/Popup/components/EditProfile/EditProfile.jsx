@@ -48,6 +48,7 @@ function EditProfile({ handleClosePopup }) {
         required
         value={name} // vincula nome ao campo de entrada, usando o valor do estado 'name' para preenchê-lo
         onChange={handleNameChange}
+        aria-label="Nome do perfil" // adiciona um rótulo acessível para o campo de entrada
       />
       <span
         className="popup__input-error_edt name-input-error"
@@ -64,16 +65,13 @@ function EditProfile({ handleClosePopup }) {
         required
         value={about} // vincula descrição ao campo de entrada, usando o valor do estado 'about' para preenchê-lo
         onChange={handleAboutChange}
+        aria-label="Descrição do perfil"
       />
       <span
         className="popup__input-error_edt about-input-error"
         id="profile-about-error"
       ></span>
-      <button
-        className="popup__btn-form_edt"
-        type="submit"
-        aria-label="Atualizar infos do perfil"
-      >
+      <button className="popup__btn-form_edt" type="submit">
         Salvar
       </button>
     </form>

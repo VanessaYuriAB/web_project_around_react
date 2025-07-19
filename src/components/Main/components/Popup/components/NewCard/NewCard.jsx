@@ -16,6 +16,7 @@ function NewCard() {
         minLength="2"
         maxLength="30"
         required
+        aria-label="Título do cartão"
       />
       <span
         className="popup__input-error_add place-input-error"
@@ -28,16 +29,13 @@ function NewCard() {
         type="url"
         placeholder="Link de imagem"
         required
+        aria-label="Link da imagem do cartão"
       />
       <span
         className="popup__input-error_add link-input-error"
         id="card-link-error"
       ></span>
-      <button
-        className="popup__btn-form_add"
-        type="submit"
-        aria-label="Adicionar cartão"
-      >
+      <button className="popup__btn-form_add" type="submit">
         Criar
       </button>
     </form>
