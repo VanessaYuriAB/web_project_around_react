@@ -22,7 +22,7 @@ function Main({
   const { currentUser } = useContext(CurrentUserContext);
 
   const newCardPopup = {
-    children: <NewCard />,
+    children: <NewCard handleClosePopup={onClosePopup} />,
   };
 
   const editProfilePopup = {

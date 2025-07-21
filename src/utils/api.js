@@ -98,7 +98,7 @@ class Api {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({
-        name: dataCard.place, // o name do input é place
+        name: dataCard.name, // o nome do input e em NewCard.jsx é place, mas o servidor espera name
         link: dataCard.link,
       }),
     }).then((res) => this._checkResponse(res));

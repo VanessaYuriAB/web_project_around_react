@@ -100,12 +100,20 @@ function App() {
       .catch((error) => console.error(`Erro ao excluir o cartão: ${error}`));
   }
 
-  // Função para abrir o popup atual
+  // Função para lidar com o envio de um novo cartão: ela recebe os dados do cartão como argumento, envia uma solicitação para a API para criar o novo cartão e, após a solicitação, atualiza o estado dos cartões adicionando o novo cartão ao início da lista - a função é chamada no componente NewCard quando o formulário é enviado, deve ser assíncrona para lidar com a Promise retornada pela API - isso garante que o novo cartão apareça imediatamente na interface do usuário
+  const handleAddPlaceSubmit = async (cardData) => {
+    console.log('Adicionando novo cartão:', cardData);
+    const newCardData = await myApi.createNewCard(cardData);
+    setCards([newCardData, ...cards]); // adiciona o novo cartão ao início da lista de cartões
+    return newCardData; // devolve os dados para quem chamou a função (handleSubmit no componente NewCard)
+  };
+
+  // Função para abrir o popup atual, ela recebe um objeto popup que contém os dados do popup a ser aberto
   const handleOpenPopup = (popup) => {
     setPopup(popup);
   };
 
-  // Função para fechar o popup atual
+  // Função para fechar o popup atual, limpando o estado do popup
   const handleClosePopup = () => {
     setPopup(null);
   };
@@ -113,7 +121,12 @@ function App() {
   return (
     // Provedor do contexto para compartilhar o usuário atual com os componentes filhos
     <CurrentUserContext.Provider
-      value={{ currentUser, handleUpdateUser, handleUpdateAvatar }}
+      value={{
+        currentUser,
+        handleUpdateUser,
+        handleUpdateAvatar,
+        handleAddPlaceSubmit,
+      }}
     >
       <div className="page">
         <Header />
