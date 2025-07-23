@@ -1,7 +1,15 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
+
 import CurrentUserContext from '../../../../../../contexts/CurrentUserContext.js';
 
+import useFormValidator from '../../../../../../hooks/useFormValidator.js';
+
+import { configEdt } from '../../../../../../utils/constants.js';
+
 function EditProfile({ handleClosePopup }) {
+  // validação do formulário: este não precisa do validatorRef pq não utiliza o reset da validação
+  const { formRef } = useFormValidator(configEdt);
+
   // Obtém o usuário atual do contexto: assina o contexto CurrentUserContext, permitindo que o componente acesse as informações do usuário atual, como nome e descrição
   const userContext = useContext(CurrentUserContext); // extrai o contexto do usuário atual
   const { currentUser, handleUpdateUser } = userContext; // extrai o usuário atual e a função de atualização do usuário do contexto
@@ -35,6 +43,7 @@ function EditProfile({ handleClosePopup }) {
       id="edit-profile-form"
       noValidate
       onSubmit={handleSubmit} // define o manipulador de envio do formulário para chamar a função handleSubmit
+      ref={formRef}
     >
       <h3 className="popup__title-form_edt">Editar perfil</h3>
       <input

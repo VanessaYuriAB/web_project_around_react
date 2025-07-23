@@ -1,7 +1,21 @@
-import { useRef, useContext } from 'react';
+import { useRef, useContext, useEffect } from 'react';
+
 import CurrentUserContext from '../../../../../../contexts/CurrentUserContext.js';
 
-function EditAvatar({ handleClosePopup }) {
+import useFormValidator from '../../../../../../hooks/useFormValidator.js';
+
+import { configPhoto } from '../../../../../../utils/constants.js';
+
+function EditAvatar({ handleClosePopup, popup }) {
+  // validação do formulário
+  const { formRef, validatorRef } = useFormValidator(configPhoto);
+
+  useEffect(() => {
+    if (popup && validatorRef.current) {
+      validatorRef.current.resetValidation();
+    }
+  }, [popup]);
+
   // Obtém o usuário atual do contexto: assina o contexto CurrentUserContext, permitindo que o componente acesse as informações do usuário atual, como a função de atualização do avatar
   const { handleUpdateAvatar } = useContext(CurrentUserContext); // extrai a função de atualização do avatar do contexto, que será usada para atualizar a foto do perfil quando o formulário for enviado
 
@@ -27,6 +41,7 @@ function EditAvatar({ handleClosePopup }) {
       id="edit-avatar-form"
       noValidate
       onSubmit={handleSubmit} // define o manipulador de envio do formulário para chamar a função handleSubmit
+      ref={formRef}
     >
       <h3 className="popup__title-form_photo">Alterar a foto do perfil</h3>
       <input

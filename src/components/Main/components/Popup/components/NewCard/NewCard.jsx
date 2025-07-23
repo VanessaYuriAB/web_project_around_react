@@ -1,8 +1,21 @@
-import { useContext, useRef } from 'react';
+import { useContext, useRef, useEffect } from 'react';
 
 import CurrentUserContext from '../../../../../../contexts/CurrentUserContext';
 
-function NewCard({ handleClosePopup }) {
+import useFormValidator from '../../../../../../hooks/useFormValidator';
+
+import { configAdd } from '../../../../../../utils/constants';
+
+function NewCard({ handleClosePopup, popup }) {
+  // validação do formulário
+  const { formRef, validatorRef } = useFormValidator(configAdd);
+
+  useEffect(() => {
+    if (popup && validatorRef.current) {
+      validatorRef.current.resetValidation();
+    }
+  }, [popup]);
+
   // Obtém o usuário atual do contexto: assina o contexto CurrentUserContext
   const { handleAddPlaceSubmit } = useContext(CurrentUserContext);
 
@@ -32,6 +45,7 @@ function NewCard({ handleClosePopup }) {
       id="new-card-form"
       noValidate
       onSubmit={handleSubmit}
+      ref={formRef}
     >
       <h3 className="popup__title-form_add">Novo local</h3>
       <input

@@ -22,15 +22,16 @@ function Main({
   const { currentUser } = useContext(CurrentUserContext);
 
   const newCardPopup = {
-    children: <NewCard handleClosePopup={onClosePopup} />,
+    children: <NewCard handleClosePopup={onClosePopup} popup={popup} />,
   };
 
+  // este componente de popup não precisa da prop 'popup' para verificação pq o popup é aberto com as informações do perfil preenchidas nos campos, não há reset na validação
   const editProfilePopup = {
     children: <EditProfile handleClosePopup={onClosePopup} />,
   };
 
   const editAvatarPopup = {
-    children: <EditAvatar handleClosePopup={onClosePopup} />,
+    children: <EditAvatar handleClosePopup={onClosePopup} popup={popup} />,
   };
 
   return (
