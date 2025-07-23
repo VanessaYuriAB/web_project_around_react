@@ -1,10 +1,12 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext } from 'react';
 
 import CurrentUserContext from '../../../../../../contexts/CurrentUserContext.js';
 
 import useFormValidator from '../../../../../../hooks/useFormValidator.js';
 
 import { configEdt } from '../../../../../../utils/constants.js';
+
+import useFormSubmit from '../../../../../../hooks/useFormSubmit.js';
 
 function EditProfile({ handleClosePopup }) {
   // validação do formulário: este não precisa do validatorRef pq não utiliza o reset da validação
@@ -19,22 +21,23 @@ function EditProfile({ handleClosePopup }) {
   const [about, setAbout] = useState(currentUser.about); // adiciona variável de estado para descrição e usa a descrição do usuário atual como valor inicial do estado
 
   function handleNameChange(event) {
-    setName(event.target.value); // atualiza o nome (name) quando a entrada for alterada
+    setName(event.target.value); // atualiza o estado do nome sempre que o usuário digita
   }
 
   function handleAboutChange(event) {
-    setAbout(event.target.value); // atualiza a descrição (about) quando a entrada for alterada
+    setAbout(event.target.value); // atualiza o estado da descrição (about) sempre que o usuário digita
   }
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      await handleUpdateUser({ name, about }); // chama a função de atualização do usuário com os valores atuais do formulário, passando o nome e a descrição atualizados em forma simplificada (shorthand) de criar objetos quando os nomes da propriedade e da variável são os mesmos
-      handleClosePopup(); // fecha o popup após a atualização, só fecha se a atualização for bem-sucedida
-    } catch (error) {
-      console.error(`Erro ao atualizar o perfil: ${error}`);
-    }
-  };
+  // Hook personalizado para envio do formulário: inclui preventDefault, loading, onSubmit, onSuccess e onError
+  const { handleSubmit, isLoading } = useFormSubmit(
+    () => handleUpdateUser({ name, about }), // chama a função de atualização do usuário com os valores atuais do formulário, passando o nome e a descrição atualizados em forma simplificada (shorthand) de criar objetos quando os nomes da propriedade e da variável são os mesmos (onSubmit, argumento do hook)
+    handleClosePopup, // fecha o popup após a atualização, só fecha se a atualização for bem-sucedida (onSuccess)
+    (error) => {
+      console.error(
+        `Erro ao atualizar o perfil: ${error} \n Nome: ${error.name} \n Mensagem: ${error.message}`
+      );
+    } // (onError)
+  );
 
   return (
     <form
@@ -42,8 +45,8 @@ function EditProfile({ handleClosePopup }) {
       name="edt"
       id="edit-profile-form"
       noValidate
-      onSubmit={handleSubmit} // define o manipulador de envio do formulário para chamar a função handleSubmit
-      ref={formRef}
+      onSubmit={handleSubmit} // handleSubmit vem do hook useFormSubmit — ele já inclui preventDefault, loading, onSubmit, onSuccess e onError
+      ref={formRef} // ref compartilhada para validação e envio
     >
       <h3 className="popup__title-form_edt">Editar perfil</h3>
       <input
@@ -80,8 +83,12 @@ function EditProfile({ handleClosePopup }) {
         className="popup__input-error_edt about-input-error"
         id="profile-about-error"
       ></span>
-      <button className="popup__btn-form_edt" type="submit">
-        Salvar
+      <button
+        className="popup__btn-form_edt"
+        type="submit"
+        disabled={isLoading}
+      >
+        {isLoading ? 'Salvando...' : 'Salvar'}
       </button>
     </form>
   );

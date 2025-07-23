@@ -6,6 +6,8 @@ import useFormValidator from '../../../../../../hooks/useFormValidator';
 
 import { configAdd } from '../../../../../../utils/constants';
 
+import useFormSubmit from '../../../../../../hooks/useFormSubmit.js';
+
 function NewCard({ handleClosePopup, popup }) {
   // validação do formulário
   const { formRef, validatorRef } = useFormValidator(configAdd);
@@ -23,20 +25,23 @@ function NewCard({ handleClosePopup, popup }) {
   const placeRef = useRef(null);
   const linkRef = useRef(null);
 
-  // Função para lidar com o envio do formulário: ela recebe o evento de envio, previne o comportamento padrão do formulário e chama a função handleAddPlaceSubmit com os dados do novo cartão
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      await handleAddPlaceSubmit({
+  // Hook personalizado para envio do formulário: inclui preventDefault, loading, onSubmit, onSuccess e onError: recebe o evento de envio, previne o comportamento padrão do formulário e chama a função handleAddPlaceSubmit com os dados do novo cartão
+  const { handleSubmit, isLoading } = useFormSubmit(
+    () =>
+      handleAddPlaceSubmit({
         name: placeRef.current.value,
         link: linkRef.current.value,
-      });
-      event.target.reset(); // limpa o formulário após o envio bem-sucedido
+      }), // (onSubmit, argumento do hook)
+    () => {
+      formRef.current.reset(); // limpa os campos do formulário após o envio bem-sucedido
       handleClosePopup(); // fecha o popup após o envio, só fecha se a adição for bem-sucedida
-    } catch (error) {
-      console.error(`Erro ao adicionar novo cartão: ${error}`);
-    }
-  };
+    }, // (onSuccess)
+    (error) => {
+      console.error(
+        `Erro ao adicionar novo cartão: ${error} \n Nome: ${error.name} \n Mensagem: ${error.message}`
+      );
+    } // (onError)
+  );
 
   return (
     <form
@@ -44,8 +49,8 @@ function NewCard({ handleClosePopup, popup }) {
       name="add"
       id="new-card-form"
       noValidate
-      onSubmit={handleSubmit}
-      ref={formRef}
+      onSubmit={handleSubmit} // handleSubmit vem do hook useFormSubmit — ele já inclui preventDefault, loading, onSubmit, onSuccess e onError
+      ref={formRef} // ref compartilhada para validação e envio
     >
       <h3 className="popup__title-form_add">Novo local</h3>
       <input
@@ -78,8 +83,12 @@ function NewCard({ handleClosePopup, popup }) {
         className="popup__input-error_add link-input-error"
         id="card-link-error"
       ></span>
-      <button className="popup__btn-form_add" type="submit">
-        Criar
+      <button
+        className="popup__btn-form_add"
+        type="submit"
+        disabled={isLoading}
+      >
+        {isLoading ? 'Criando...' : 'Criar'}
       </button>
     </form>
   );

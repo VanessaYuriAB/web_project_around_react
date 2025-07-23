@@ -6,6 +6,8 @@ import useFormValidator from '../../../../../../hooks/useFormValidator.js';
 
 import { configPhoto } from '../../../../../../utils/constants.js';
 
+import useFormSubmit from '../../../../../../hooks/useFormSubmit.js';
+
 function EditAvatar({ handleClosePopup, popup }) {
   // validação do formulário
   const { formRef, validatorRef } = useFormValidator(configPhoto);
@@ -23,16 +25,19 @@ function EditAvatar({ handleClosePopup, popup }) {
   // Isso é útil para evitar re-renderizações desnecessárias do componente, já que o input não precisa ser controlado pelo estado do React - a referência é criada usando useRef, que retorna um objeto com uma propriedade 'current' que pode ser usada para armazenar o valor do input
   const avatarRef = useRef();
 
-  // Função para lidar com o envio do formulário: chama a função de atualização do avatar com o valor do input de foto e fecha o popup após a atualização
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      await handleUpdateAvatar(avatarRef.current.value); // chama a função de atualização do avatar com o valor atual do input de foto
-      handleClosePopup(); // fecha o popup após a atualização, só fecha se a atualização for bem-sucedida
-    } catch (error) {
-      console.error(`Erro ao atualizar a foto do perfil: ${error}`);
-    }
-  };
+  // Hook personalizado para envio do formulário: inclui preventDefault, loading, onSubmit, onSuccess e onError: chama a função de atualização do avatar com o valor do input de foto
+  const { handleSubmit, isLoading } = useFormSubmit(
+    () => handleUpdateAvatar(avatarRef.current.value), // (onSubmit, argumento do hook)
+    () => {
+      formRef.current.reset(); // limpa o campo do formulário após o envio bem-sucedido
+      handleClosePopup(); // fecha o popup após o envio, só fecha se a atualização for bem-sucedida
+    }, // (onSuccess)
+    (error) => {
+      console.error(
+        `Erro ao atualizar a foto do perfil: ${error} \n Nome: ${error.name} \n Mensagem: ${error.message}`
+      );
+    } // (onError)
+  );
 
   return (
     <form
@@ -40,8 +45,8 @@ function EditAvatar({ handleClosePopup, popup }) {
       name="photo"
       id="edit-avatar-form"
       noValidate
-      onSubmit={handleSubmit} // define o manipulador de envio do formulário para chamar a função handleSubmit
-      ref={formRef}
+      onSubmit={handleSubmit} // handleSubmit vem do hook useFormSubmit — ele já inclui preventDefault, loading, onSubmit, onSuccess e onError
+      ref={formRef} // ref compartilhada para validação e envio
     >
       <h3 className="popup__title-form_photo">Alterar a foto do perfil</h3>
       <input
@@ -58,8 +63,12 @@ function EditAvatar({ handleClosePopup, popup }) {
         className="popup__input-error_photo photo-input-error"
         id="avatar-photo-error"
       ></span>
-      <button className="popup__btn-form_photo" type="submit">
-        Salvar
+      <button
+        className="popup__btn-form_photo"
+        type="submit"
+        disabled={isLoading}
+      >
+        {isLoading ? 'Salvando...' : 'Salvar'}
       </button>
     </form>
   );
