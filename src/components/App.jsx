@@ -122,10 +122,10 @@ function App() {
     // Provedor do contexto para compartilhar o usuário atual com os componentes filhos
     <CurrentUserContext.Provider
       value={{
-        currentUser,
-        handleUpdateUser,
-        handleUpdateAvatar,
-        handleAddPlaceSubmit,
+        currentUser, // objeto com dados do usuário
+        handleUpdateUser, // função para atualizar infos de perfil do usuário
+        handleUpdateAvatar, // função para atualizar a foto de perfil do usuário
+        handleAddPlaceSubmit, // função para adicionar novo card
       }}
     >
       <div className="page">
