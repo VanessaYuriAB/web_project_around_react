@@ -77,6 +77,7 @@ function Main({
               key={card._id}
               card={card}
               handleOpenPopup={onOpenPopup}
+              handleClosePopup={onClosePopup}
               onCardLike={onCardLike}
               onCardDelete={onCardDelete}
             />

@@ -6,7 +6,7 @@ export default function Popup(props) {
   const isImagePopup = children.type.name === 'ImagePopup';
 
   return (
-    <div className="popup popup_closed">
+    <div className="popup">
       {children}
       <button
         className={`icon-close-btn popup__icon-close-btn ${

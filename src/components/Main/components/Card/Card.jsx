@@ -1,10 +1,17 @@
 import ImagePopup from '../Popup/components/ImagePopup/ImagePopup';
+import DeleteConfirmation from '../Popup/components/DeleteConfirmation/DeleteConfirmation.jsx';
 
 import { useContext } from 'react';
 
 import CurrentUserContext from '../../../../contexts/CurrentUserContext.js';
 
-function Card({ card, handleOpenPopup, onCardLike, onCardDelete }) {
+function Card({
+  card,
+  handleOpenPopup,
+  handleClosePopup,
+  onCardLike,
+  onCardDelete,
+}) {
   const { currentUser } = useContext(CurrentUserContext);
 
   // Desestruturação do objeto card para obter as propriedades necessárias
@@ -18,7 +25,17 @@ function Card({ card, handleOpenPopup, onCardLike, onCardDelete }) {
   // Cria um objeto para o popup de imagem, que será passado para a função handleOpenPopup, o popup de imagem recebe o card atual para exibir a imagem e o nome, a função handleOpenPopup é chamada quando a imagem do cartão é clicada
   const imagePopup = { children: <ImagePopup card={card} /> };
 
-  // Função para lidar com o clique no botão de curtir/descurtir cartão: ela chama a função onCardLike, que é passada como prop, passando o cartão atual como argumento; isso permite que o componente pai (Main) gerencie a lógica de curtir/descurtir o cartão e atualize o estado dos cartões; a função onCardLike é definida no componente Main e é responsável por enviar a solicitação para a API
+  // Cria objeto para popup de confirmação de exclusão, passado à função handleOpenPopup, o popup de confirmação recebe a função de fechar o popup, a função de deletar o popup e o objeto com os dados do card
+  const deleteConfirmationPopup = {
+    children: (
+      <DeleteConfirmation
+        handleCardDelete={onCardDelete}
+        handleClosePopup={handleClosePopup}
+        handleCardDelete={onCardDelete}
+        card={card}
+      />
+    ),
+  };
   function handleLikeClick() {
     onCardLike(card);
   }
@@ -41,7 +58,9 @@ function Card({ card, handleOpenPopup, onCardLike, onCardDelete }) {
         id="tsh-model"
         type="button"
         aria-label="Deletar cartão"
-        onClick={handleDeleteClick}
+        onClick={() => {
+          handleOpenPopup(deleteConfirmationPopup);
+        }}
       ></button>
       <div className="text card__text">
         <h3 className="name card__name">{name}</h3>
