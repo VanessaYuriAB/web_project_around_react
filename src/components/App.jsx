@@ -52,7 +52,6 @@ function App() {
   const handleUpdateUser = async (userData) => {
     const updatedUserData = await myApi.updateProfileInfo(userData);
     setCurrentUser(updatedUserData); // atualiza o estado do usuário atual com os dados retornados pela API
-    return updatedUserData; // devolve os dados para quem chamou a função (handleSubmit no componente EditProfile)
   };
 
   // Função para atualizar a foto do perfil, retorna uma Promise para que o tratamento de erro seja feito por quem chamou
@@ -62,45 +61,42 @@ function App() {
       ...prevUser, // mantém os dados anteriores do usuário
       avatar: updatedAvatarData.avatar, // atualiza apenas a foto do perfil
     }));
-    return updatedAvatarData; // devolve os dados para quem chamou a função (handleSubmit no componente EditAvatar)
   };
 
   // Função para lidar com o evento de curtir/descurtir um cartão: ela recebe o cartão atual como argumento e verifica se ele já foi curtido ou não, se o cartão já foi curtido, a função envia uma solicitação para a API para remover o like, caso contrário, envia uma solicitação para adicionar o like - após a solicitação, atualiza o estado dos cartões com os dados retornados pela API
   const handleCardLike = async (card) => {
     try {
-    // Verifica, mais um vez, se o cartão já foi curtido - é verificado no componente Card, mas é uma boa prática verificar novamente aqui
-    const isLiked = card.isLiked;
+      // Verifica, mais um vez, se o cartão já foi curtido - é verificado no componente Card, mas é uma boa prática verificar novamente aqui
+      const isLiked = card.isLiked;
 
-    // Envia uma solicitação para a API e obtém os dados do cartão atualizados
+      // Envia uma solicitação para a API e obtém os dados do cartão atualizados
       // !isLiked = ação inversa do estado atual de curtida - corresponde à shouldLike no método toggleLikeCard
       const updatedCard = await myApi.toggleLikeCard(card._id, !isLiked);
 
       setCards((prevCards) =>
         prevCards.map((item) => (item._id === card._id ? updatedCard : item))
-        );
+      );
     } catch (error) {
       console.error(
         `Erro ao curtir/descurtir o cartão: ${error} \n Nome: ${error.name} \n Mensagem: ${error.message}`
       );
-  }
+    }
   };
 
   // Função para lidar com a exclusão de um cartão: ela recebe o cartão atual como argumento e envia uma solicitação para a API para excluir o cartão, após a solicitação, atualiza o estado dos cartões removendo o cartão excluído
   const handleCardDelete = async (card) => {
     await myApi.deleteCard(card._id);
-        setCards((stateCards) =>
-          stateCards.filter(
-            (currentCardInFilter) => currentCardInFilter._id !== card._id
-          )
+    setCards((stateCards) =>
+      stateCards.filter(
+        (currentCardInFilter) => currentCardInFilter._id !== card._id
+      )
     ); // aplica filter para remover o card em questão da lista
   };
 
   // Função para lidar com o envio de um novo cartão: ela recebe os dados do cartão como argumento, envia uma solicitação para a API para criar o novo cartão e, após a solicitação, atualiza o estado dos cartões adicionando o novo cartão ao início da lista - a função é chamada no componente NewCard quando o formulário é enviado, deve ser assíncrona para lidar com a Promise retornada pela API - isso garante que o novo cartão apareça imediatamente na interface do usuário
   const handleAddPlaceSubmit = async (cardData) => {
-    console.log('Adicionando novo cartão:', cardData);
     const newCardData = await myApi.createNewCard(cardData);
     setCards([newCardData, ...cards]); // adiciona o novo cartão ao início da lista de cartões
-    return newCardData; // devolve os dados para quem chamou a função (handleSubmit no componente NewCard)
   };
 
   // Função para abrir o popup atual, ela recebe um objeto popup que contém os dados do popup a ser aberto
