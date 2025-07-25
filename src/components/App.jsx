@@ -24,28 +24,21 @@ function App() {
   // Estado para armazenar o popup atual, (não utilizado neste arquivo, mas necessário para manter a estrutura do código)
   const [popup, setPopup] = useState(null);
 
-  // Obtém as informações do usuário atual do servidor quando o componente é montado
+  // Obtém as informações e cartões do usuário atual do servidor quando o componente é montado; atualiza os estados de usuário e dos cartões com os dados retornados pela API - em Promisse.all
   useEffect(() => {
-    myApi
-      .getServerUserInfos()
-      .then((userData) => {
+    async function fetchData() {
+      try {
+        const [userData, cardsData] = await myApi.getServerUserAndCards();
         setCurrentUser(userData);
-      })
-      .catch((err) => {
-        console.error(`Erro ao obter informações do usuário: ${err}`);
-      });
-  }, []);
+        setCards(cardsData);
+      } catch (error) {
+        console.error(
+          `Erro ao obter informações ou cartões do usuário: \n Erro: ${error} \n Nome: ${error.name} \n Mensagem: ${error.message}`
+        );
+      }
+    }
 
-  // Obtém os cartões iniciais do servidor quando o componente é montado e atualiza o estado dos cartões com os dados retornados pela API
-  useEffect(() => {
-    myApi
-      .getInitialCards()
-      .then((initialCards) => {
-        setCards(initialCards);
-      })
-      .catch((err) => {
-        console.error(`Erro ao obter os cartões iniciais: ${err}`);
-      });
+    fetchData();
   }, []);
 
   // Função para atualizar as informações do usuário, retorna uma Promise para que o tratamento de erro seja feito por quem chamou
