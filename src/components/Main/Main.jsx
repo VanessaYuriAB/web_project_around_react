@@ -43,7 +43,8 @@ function Main({
           {/* foto configurada pelo css, como background-image, antes de conectar com as infos da API*/}
           <img
             src={currentUser.avatar}
-            alt="____Foto____"
+            alt=""
+            aria-label="Foto de perfil"
             className="profile__photo_img"
           />
           <button
