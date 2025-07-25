@@ -1,3 +1,5 @@
+import { useRef } from 'react';
+
 export default function Popup(props) {
   //children é o conteúdo de popup
   const { children, onClose } = props;
@@ -12,9 +14,22 @@ export default function Popup(props) {
   // EditAvatar
   const isEditAvatar = children.type.name === 'EditAvatar';
 
+  // Fechamento do popup por clique na tela, fora do popup em si
+  const childrenPopupRef = useRef(null);
+
+  const handleClickClose = (evt) => {
+    const childrenContent = childrenPopupRef.current;
+    const clickedOutside =
+      childrenContent && !childrenContent.contains(evt.target);
+
+    if (clickedOutside) onClose();
+  };
+
   return (
-    <div className="popup">
+    <div className="popup" onClick={handleClickClose}>
+      <div className="popup__content" ref={childrenPopupRef}>
       {children}
+      </div>
       <button
         className={`icon-close-btn popup__icon-close-btn ${
           isImagePopup ? 'popup__icon-close-btn_card' : ''

@@ -11,6 +11,10 @@
   left: 0;
 }
 
+.popup__content {
+  display: contents;
+}
+
 .popup__container_edt,
 .popup__container_add,
 .popup__container_trash,
@@ -41,6 +45,7 @@
 
 .popup__figure_card {
   margin: 90px 0 0 40px;
+  height: max-content;
 }
 
 .popup__title-form_add,
