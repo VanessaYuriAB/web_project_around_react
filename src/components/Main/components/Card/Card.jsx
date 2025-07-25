@@ -29,20 +29,16 @@ function Card({
   const deleteConfirmationPopup = {
     children: (
       <DeleteConfirmation
-        handleCardDelete={onCardDelete}
         handleClosePopup={handleClosePopup}
         handleCardDelete={onCardDelete}
         card={card}
       />
     ),
   };
+
+  // Função para lidar com o clique no botão de curtir/descurtir cartão: para encapsulamento da prop e maior organização ou clareza: ela chama a função onCardLike, que é passada como prop, passando o cartão atual como argumento; isso permite que o componente pai (App) gerencie a lógica de curtir/descurtir o cartão e atualize o estado dos cartões; a função onCardLike é definida no componente App e é responsável por enviar a solicitação para a API
   function handleLikeClick() {
     onCardLike(card);
-  }
-
-  // Função para lidar com o clique no botão de deletar cartão: ela chama a função onCardDelete, que é passada como prop, passando o cartão atual como argumento; isso permite que o componente pai (Main) gerencie a lógica de deletar o cartão e atualize o estado dos cartões; a função onCardDelete é definida no componente Main e é responsável por enviar a solicitação para a API
-  function handleDeleteClick() {
-    onCardDelete(card);
   }
 
   return (
