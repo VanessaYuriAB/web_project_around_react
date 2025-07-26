@@ -89,7 +89,11 @@ function Main({
       </section>
 
       {/* se o popup não for nulo, o componente será renderizado na tela */}
-      {popup && <Popup onClose={onClosePopup}>{popup.children}</Popup>}
+      {popup && (
+        <Popup onClose={onClosePopup} popup={popup}>
+          {popup.children}
+        </Popup>
+      )}
     </main>
   );
 }
