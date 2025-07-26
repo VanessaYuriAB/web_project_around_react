@@ -4,7 +4,7 @@ import useFormSubmit from '../../../../../../hooks/useFormSubmit';
 
 function DeleteConfirmation({ handleClosePopup, handleCardDelete, card }) {
   // Referência para o formulário
-  const formRef = useRef();
+  const formRef = useRef(null);
 
   // Hook para envio do formulário: inclui preventDefault, loading, onSubmit, onSuccess e onError: retorna a função handleSubmit e a variável de estado isLoading (para o render da solicitação à API): chama a função de delete do card que é passada como prop, passando o objeto do cartão atual como argumento; isso permite que o componente pai (App) gerencie a lógica de deletar o cartão e atualize o estado dos cartões; a função é definida no componente App e é responsável por enviar a solicitação para a API
   const { handleSubmit, isLoading } = useFormSubmit(
