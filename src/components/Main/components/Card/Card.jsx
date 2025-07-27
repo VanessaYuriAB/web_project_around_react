@@ -18,6 +18,9 @@ function Card({
   // Verifica se o cartão é do usuário atual
   const isItACurrentUserSCard = currentUser._id === card.owner;
 
+  // Desestruturação da propriedade isLiked do objeto card para utilizá-la diretamente na verificação (sem uso do objeto card)
+  const { isLiked } = card;
+
   // Verifica se o usuário atual “curtiu” o cartão: se isLiked for true, a classe 'card__like-button_is-active' será aplicada para mostrar que o botão está no status "curtir", se for false, nenhuma classe adicional será aplicada.
   const cardLikeButtonClassName = `card__like-btn ${
     isLiked ? 'card__like-btn_active' : ''
@@ -46,8 +49,8 @@ function Card({
     <li className="card">
       <img
         className="image card__image"
-        src={link}
-        alt={name}
+        src={card.link}
+        alt={card.name}
         onClick={() => handleOpenPopup(imagePopup)}
       />
       {isItACurrentUserSCard && (
@@ -62,7 +65,7 @@ function Card({
         ></button>
       )}
       <div className="text card__text">
-        <h3 className="name card__name">{name}</h3>
+        <h3 className="name card__name">{card.name}</h3>
         <button
           // Botão de curtir/descurtir cartão, que recebe a classe conforme estado, definido na variável cardLikeButtonClassName, para aplicar o estilo correto
           className={cardLikeButtonClassName}
