@@ -12,10 +12,11 @@ function Card({
   onCardLike,
   onCardDelete,
 }) {
+  // Obtém o usuário atual do contexto: assina o contexto CurrentUserContext e extrai o objeto com infos do usuário
   const { currentUser } = useContext(CurrentUserContext);
 
-  // Desestruturação do objeto card para obter as propriedades necessárias
-  const { name, link, isLiked } = card;
+  // Verifica se o cartão é do usuário atual
+  const isItACurrentUserSCard = currentUser._id === card.owner;
 
   // Verifica se o usuário atual “curtiu” o cartão: se isLiked for true, a classe 'card__like-button_is-active' será aplicada para mostrar que o botão está no status "curtir", se for false, nenhuma classe adicional será aplicada.
   const cardLikeButtonClassName = `card__like-btn ${
@@ -49,15 +50,17 @@ function Card({
         alt={name}
         onClick={() => handleOpenPopup(imagePopup)}
       />
-      <button
-        className="trash-btn card__trash-btn"
-        id="tsh-model"
-        type="button"
-        aria-label="Deletar cartão"
-        onClick={() => {
-          handleOpenPopup(deleteConfirmationPopup);
-        }}
-      ></button>
+      {isItACurrentUserSCard && (
+        <button
+          className="trash-btn card__trash-btn"
+          id="tsh-model"
+          type="button"
+          aria-label="Deletar cartão"
+          onClick={() => {
+            handleOpenPopup(deleteConfirmationPopup);
+          }}
+        ></button>
+      )}
       <div className="text card__text">
         <h3 className="name card__name">{name}</h3>
         <button
