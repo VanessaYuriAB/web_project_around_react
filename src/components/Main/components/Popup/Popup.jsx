@@ -1,10 +1,13 @@
 import { useEffect, useRef } from 'react';
 
 export default function Popup(props) {
-  //children é o conteúdo de popup
+  // 1. Desestruturação do objeto passado como prop ao componente, children é conteúdo de popup
   const { children, onClose, popup } = props;
 
-  // Para verificar se children é o componente popup que precisa de configuração diferente da classe do botão de fechar para ajuste da margem superior
+  // 2. Ref para encapsulamento de children: para fechamento do popup por clique na tela, fora do popup em si: para detectar clique fora da caixa
+  const childrenPopupRef = useRef(null);
+
+  // 3. Verificação de tipo de popup: para verificar se children é o componente popup que precisa de configuração diferente da classe do botão de fechar para ajuste da margem superior
   // ImagePopup
   const isImagePopup = children.type.name === 'ImagePopup';
 
@@ -14,18 +17,7 @@ export default function Popup(props) {
   // EditAvatar
   const isEditAvatar = children.type.name === 'EditAvatar';
 
-  // Fechamento do popup por clique na tela, fora do popup em si
-  const childrenPopupRef = useRef(null);
-
-  const handleClickClose = (evt) => {
-    const childrenContent = childrenPopupRef.current;
-    const clickedOutside =
-      childrenContent && !childrenContent.contains(evt.target);
-
-    if (clickedOutside) onClose();
-  };
-
-  // Fechamento do popup pela tecla 'Esc'
+  // 4. Efeito colateral para fechamento do popup pela tecla 'Esc'
   useEffect(() => {
     const handleEscClose = (evt) => {
       const keyIsEsc = evt.code === 'Escape'; // valor de código para eventos de teclado (Windowns, Mac, Linux e Firefox para Android)
@@ -41,6 +33,15 @@ export default function Popup(props) {
       // remove o listener ao desmontar ou ao mudar dependências → evita múltiplas inscrições ou vazamentos
     };
   }, [popup, onClose]);
+
+  // 5. Handler: fechamento por clique fora
+  const handleClickClose = (evt) => {
+    const childrenContent = childrenPopupRef.current;
+    const clickedOutside =
+      childrenContent && !childrenContent.contains(evt.target);
+
+    if (clickedOutside) onClose();
+  };
 
   return (
     <div className="popup" onClick={handleClickClose}>

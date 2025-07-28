@@ -9,23 +9,24 @@ import { configAdd } from '../../../../../../utils/constants';
 import useFormSubmit from '../../../../../../hooks/useFormSubmit.js';
 
 function NewCard({ handleClosePopup, popup }) {
-  // validação do formulário
+  // 1. Refs para inputs: cria referências para os campos do formulário, não é necessário usar useState aqui, pois os valores serão obtidos diretamente do formulário quando o usuário enviar
+  const placeRef = useRef(null);
+  const linkRef = useRef(null);
+
+  // 2. Contexto: obtém o usuário atual do contexto: assina o contexto CurrentUserContext
+  const { handleAddPlaceSubmit } = useContext(CurrentUserContext);
+
+  // 3. Validação do formulário
   const { formRef, validatorRef } = useFormValidator(configAdd);
 
+  // 4. Efeito colateral para reset de validação
   useEffect(() => {
     if (popup && validatorRef.current) {
       validatorRef.current.resetValidation();
     }
   }, [popup]);
 
-  // Obtém o usuário atual do contexto: assina o contexto CurrentUserContext
-  const { handleAddPlaceSubmit } = useContext(CurrentUserContext);
-
-  // Cria referências para os campos do formulário, não é necessário usar useState aqui, pois os valores serão obtidos diretamente do formulário quando o usuário enviar
-  const placeRef = useRef(null);
-  const linkRef = useRef(null);
-
-  // Hook personalizado para envio do formulário: inclui preventDefault, loading, onSubmit, onSuccess e onError: recebe o evento de envio, previne o comportamento padrão do formulário e chama a função handleAddPlaceSubmit com os dados do novo cartão
+  // 5. Hook personalizado para submissão: envio do formulário: inclui preventDefault, loading, onSubmit, onSuccess e onError: recebe o evento de envio, previne o comportamento padrão do formulário e chama a função handleAddPlaceSubmit com os dados do novo cartão
   const { handleSubmit, isLoading } = useFormSubmit(
     () =>
       handleAddPlaceSubmit({

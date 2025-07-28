@@ -12,24 +12,25 @@ function Card({
   onCardLike,
   onCardDelete,
 }) {
-  // Obtém o usuário atual do contexto: assina o contexto CurrentUserContext e extrai o objeto com infos do usuário
-  const { currentUser } = useContext(CurrentUserContext);
-
-  // Verifica se o cartão é do usuário atual
-  const isItACurrentUserSCard = currentUser._id === card.owner;
-
-  // Desestruturação da propriedade isLiked do objeto card para utilizá-la diretamente na verificação (sem uso do objeto card)
+  // 1. Desestruturação: propriedade isLiked do objeto card para utilizá-la diretamente na verificação (sem uso do objeto card)
   const { isLiked } = card;
 
-  // Verifica se o usuário atual “curtiu” o cartão: se isLiked for true, a classe 'card__like-button_is-active' será aplicada para mostrar que o botão está no status "curtir", se for false, nenhuma classe adicional será aplicada.
+  // 2. Contexto: obtém o usuário atual do contexto: assina o contexto CurrentUserContext e extrai o objeto com infos do usuário
+  const { currentUser } = useContext(CurrentUserContext);
+
+  // 3. Para verificar se o cartão é do usuário atual
+  const isCardOwner = currentUser._id === card.owner;
+
+  // 4. Verificação para classe do botão like: se o usuário atual “curtiu” o cartão, isLiked é true, a classe 'card__like-button_is-active' será aplicada para mostrar que o botão está no status "curtir"; se for false, nenhuma classe adicional é aplicada
   const cardLikeButtonClassName = `card__like-btn ${
     isLiked ? 'card__like-btn_active' : ''
   }`;
 
-  // Cria um objeto para o popup de imagem, que será passado para a função handleOpenPopup, o popup de imagem recebe o card atual para exibir a imagem e o nome, a função handleOpenPopup é chamada quando a imagem do cartão é clicada
+  // 5. Objetos para popups (image e trash): cada um será passado para a função handleOpenPopup,
+  // Image: o popup de imagem recebe o card atual para exibir a imagem e o nome, a função handleOpenPopup é chamada quando a imagem do cartão é clicada
   const imagePopup = { children: <ImagePopup card={card} /> };
 
-  // Cria objeto para popup de confirmação de exclusão, passado à função handleOpenPopup, o popup de confirmação recebe a função de fechar o popup, a função de deletar o popup e o objeto com os dados do card
+  // Trash: o popup de confirmação de exclusão recebe a função de fechar o popup, a função de deletar o popup e o objeto com os dados do card
   const deleteConfirmationPopup = {
     children: (
       <DeleteConfirmation
@@ -40,7 +41,7 @@ function Card({
     ),
   };
 
-  // Função para lidar com o clique no botão de curtir/descurtir cartão: para encapsulamento da prop e maior organização ou clareza: ela chama a função onCardLike, que é passada como prop, passando o cartão atual como argumento; isso permite que o componente pai (App) gerencie a lógica de curtir/descurtir o cartão e atualize o estado dos cartões; a função onCardLike é definida no componente App e é responsável por enviar a solicitação para a API
+  // 6. Handlers: função para lidar com o clique no botão de curtir/descurtir cartão: para encapsulamento da prop e maior organização ou clareza: ela chama a função onCardLike, que é passada como prop, passando o cartão atual como argumento; isso permite que o componente pai (App) gerencie a lógica de curtir/descurtir o cartão e atualize o estado dos cartões; a função onCardLike é definida no componente App e é responsável por enviar a solicitação para a API
   function handleLikeClick() {
     onCardLike(card);
   }
@@ -53,7 +54,7 @@ function Card({
         alt={card.name}
         onClick={() => handleOpenPopup(imagePopup)}
       />
-      {isItACurrentUserSCard && (
+      {isCardOwner && (
         <button
           className="trash-btn card__trash-btn"
           id="tsh-model"

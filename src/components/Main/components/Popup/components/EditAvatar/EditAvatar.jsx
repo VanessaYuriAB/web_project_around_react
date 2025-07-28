@@ -9,25 +9,25 @@ import { configPhoto } from '../../../../../../utils/constants.js';
 import useFormSubmit from '../../../../../../hooks/useFormSubmit.js';
 
 function EditAvatar({ handleClosePopup, popup }) {
-  // validação do formulário
+  // 1. Refs para input: referência é usada para obter o valor do input quando o formulário é enviado, facilitando o acesso ao valor do input sem a necessidade de gerenciar o estado do input com useState - permitindo acessar diretamente o elemento DOM com 'current.value' - é útil para evitar re-renderizações desnecessárias do componente, já que o input não precisa ser controlado pelo estado do React - a referência é criada usando useRef, que retorna um objeto com uma propriedade 'current' que pode ser usada para armazenar o valor do input
+  const avatarRef = useRef(null);
+
+  // 2. Contexto: obtém o usuário atual do contexto: assina o contexto CurrentUserContext, permitindo que o componente acesse as informações do usuário atual, como a função de atualização do avatar
+  const { handleUpdateAvatar } = useContext(CurrentUserContext); // extrai apenas a função de atualização do avatar do provedor de contexto, que será usada para atualizar a foto do perfil quando o formulário for enviado
+
+  // 3. Validação do formulário
   const { formRef, validatorRef } = useFormValidator(configPhoto);
 
+  // 4. Efeito colateral para reset de validação
   useEffect(() => {
     if (popup && validatorRef.current) {
       validatorRef.current.resetValidation();
     }
   }, [popup]);
 
-  // Obtém o usuário atual do contexto: assina o contexto CurrentUserContext, permitindo que o componente acesse as informações do usuário atual, como a função de atualização do avatar
-  const { handleUpdateAvatar } = useContext(CurrentUserContext); // extrai a função de atualização do avatar do provedor de contexto, que será usada para atualizar a foto do perfil quando o formulário for enviado
-
-  // A referência é usada para obter o valor do input quando o formulário é enviado, facilitando o acesso ao valor do input sem a necessidade de gerenciar o estado do input com useState - permitindo acessar diretamente o elemento DOM com 'current.value'
-  // Isso é útil para evitar re-renderizações desnecessárias do componente, já que o input não precisa ser controlado pelo estado do React - a referência é criada usando useRef, que retorna um objeto com uma propriedade 'current' que pode ser usada para armazenar o valor do input
-  const avatarRef = useRef(null);
-
-  // Hook personalizado para envio do formulário: inclui preventDefault, loading, onSubmit, onSuccess e onError: retorna a função handleSubmit e a variável de estado isLoading (para o render da solicitação à API): chama a função de atualização do avatar com o valor do input de foto
+  // 5. Hook personalizado para submissão: envio do formulário: inclui preventDefault, loading, onSubmit, onSuccess e onError: retorna a função handleSubmit e a variável de estado isLoading (para o render da solicitação à API)
   const { handleSubmit, isLoading } = useFormSubmit(
-    () => handleUpdateAvatar(avatarRef.current.value), // (onSubmit, primeiro argumento do hook)
+    () => handleUpdateAvatar(avatarRef.current.value), // chama a função de atualização do avatar com o valor do input de foto (onSubmit, primeiro argumento do hook)
     () => {
       formRef.current.reset(); // limpa o campo do formulário após o envio bem-sucedido
       handleClosePopup(); // fecha o popup após o envio, só fecha se a atualização for bem-sucedida

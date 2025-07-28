@@ -9,17 +9,29 @@ import { configEdt } from '../../../../../../utils/constants.js';
 import useFormSubmit from '../../../../../../hooks/useFormSubmit.js';
 
 function EditProfile({ handleClosePopup }) {
-  // validação do formulário: este não precisa do validatorRef pq não utiliza o reset da validação
-  const { formRef } = useFormValidator(configEdt);
-
-  // Obtém o usuário atual do contexto: assina o contexto CurrentUserContext, permitindo que o componente acesse as informações do usuário atual, como nome e descrição
+  // 1. Contexto: obtém o usuário atual do contexto: assina o contexto CurrentUserContext, permitindo que o componente acesse as informações do usuário atual, como nome e descrição
   const userContext = useContext(CurrentUserContext); // extrai o contexto do usuário atual
   const { currentUser, handleUpdateUser } = userContext; // extrai o usuário atual e a função de atualização do usuário do contexto
 
-  // Define o estado inicial do formulário com os valores do usuário atual, garantindo que o formulário seja preenchido com as informações corretas quando aberto
+  // 2. useStates: define o estado inicial do formulário com os valores do usuário atual, garantindo que o formulário seja preenchido com as informações corretas quando aberto
   const [name, setName] = useState(currentUser.name); // adiciona variável de estado para nome e usa o nome do usuário atual como valor inicial do estado
   const [about, setAbout] = useState(currentUser.about); // adiciona variável de estado para descrição e usa a descrição do usuário atual como valor inicial do estado
 
+  // 3. Validação do formulário: este não utiliza o reset da validação, portanto não precisa do validatorRef
+  const { formRef } = useFormValidator(configEdt);
+
+  // 5. Hook personalizado para submissão: envio do formulário: inclui preventDefault, loading, onSubmit, onSuccess e onError
+  const { handleSubmit, isLoading } = useFormSubmit(
+    () => handleUpdateUser({ name, about }), // chama a função de atualização do usuário com os valores atuais do formulário, passando o nome e a descrição atualizados em forma simplificada (shorthand) de criar objetos quando os nomes da propriedade e da variável são os mesmos (onSubmit, primeiro argumento do hook)
+    handleClosePopup, // fecha o popup após a atualização, só fecha se a atualização for bem-sucedida (onSuccess, segundo argumento do hook)
+    (error) => {
+      console.error(
+        `Erro ao atualizar o perfil: ${error} \n Nome: ${error.name} \n Mensagem: ${error.message}`
+      );
+    } // (onError, terceiro e último argumento do hook)
+  );
+
+  // 6. Handlers
   function handleNameChange(event) {
     setName(event.target.value); // atualiza o estado do nome sempre que o usuário digita
   }
@@ -27,17 +39,6 @@ function EditProfile({ handleClosePopup }) {
   function handleAboutChange(event) {
     setAbout(event.target.value); // atualiza o estado da descrição (about) sempre que o usuário digita
   }
-
-  // Hook personalizado para envio do formulário: inclui preventDefault, loading, onSubmit, onSuccess e onError
-  const { handleSubmit, isLoading } = useFormSubmit(
-    () => handleUpdateUser({ name, about }), // chama a função de atualização do usuário com os valores atuais do formulário, passando o nome e a descrição atualizados em forma simplificada (shorthand) de criar objetos quando os nomes da propriedade e da variável são os mesmos (onSubmit, argumento do hook)
-    handleClosePopup, // fecha o popup após a atualização, só fecha se a atualização for bem-sucedida (onSuccess)
-    (error) => {
-      console.error(
-        `Erro ao atualizar o perfil: ${error} \n Nome: ${error.name} \n Mensagem: ${error.message}`
-      );
-    } // (onError)
-  );
 
   return (
     <form

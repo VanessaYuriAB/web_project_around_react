@@ -18,20 +18,21 @@ function Main({
   onCardLike,
   onCardDelete,
 }) {
-  // Obtém o usuário atual do contexto: assina o contexto CurrentUserContext
+  // 1. Contexto: obtém o usuário atual do contexto: assina o contexto CurrentUserContext
   const { currentUser } = useContext(CurrentUserContext);
 
-  // Cria um objeto para o popup de novo cartão, que será passado para a função handleOpenPopup, o popup add recebe a função de fechar o popup e a variável do estado de popup para poder configurar a validação do formulário do popup e o reset do form - é criado neste componente pois é onde está o botão para abrir o popup
+  // 2. Objetos para tipos de popup (add, edt e photo): cada um será passado para a função handleOpenPopup
+  // Add: o popup recebe a função de fechar o popup e a variável do estado de popup para poder configurar a validação do formulário do popup e o reset do form - é criado neste componente pois é onde está o botão para abrir o popup
   const newCardPopup = {
     children: <NewCard handleClosePopup={onClosePopup} popup={popup} />,
   };
 
-  // Este componente de popup não precisa da prop 'popup' para verificação pq o popup é aberto com as informações do perfil preenchidas nos campos, não há reset na validação
+  // Edt: este componente de popup não precisa da prop 'popup' para verificação pq o popup é aberto com as informações do perfil preenchidas nos campos, não há reset na validação
   const editProfilePopup = {
     children: <EditProfile handleClosePopup={onClosePopup} />,
   };
 
-  // Componente de popup para edição da foto de perfil
+  // Photo: componente de popup para edição da foto de perfil, recebe a função de fechar e a variável do estado de popup
   const editAvatarPopup = {
     children: <EditAvatar handleClosePopup={onClosePopup} popup={popup} />,
   };
