@@ -4,6 +4,8 @@ import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import { defineConfig, globalIgnores } from 'eslint/config';
 
+import react from 'eslint-plugin-react';
+
 export default defineConfig([
   globalIgnores(['dist']),
   {
@@ -12,6 +14,7 @@ export default defineConfig([
       js.configs.recommended,
       reactHooks.configs['recommended-latest'],
       reactRefresh.configs.vite,
+      react.configs.recommended,
     ],
     languageOptions: {
       ecmaVersion: 2020,
@@ -30,7 +33,7 @@ export default defineConfig([
         'warn',
         { allowConstantExport: true },
       ], // permite exportar componentes constantes sem aviso
-      'react/prop-types': 'off', // desativa validação de prop-types
+      'react/prop-types': 'off', // desativa validação de prop-types, conforme instruído no projeto (Boas práticas com props, por exemplo, avisa se uma prop obrigatória (por propTypes) estiver faltando)
 
       quotes: ['error', 'single'], // força uso de aspas simples
     },
