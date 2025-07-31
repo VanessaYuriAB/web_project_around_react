@@ -19,6 +19,8 @@
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react": "^4.5.2",
+    "autoprefixer": "10.4.21",
+    "cssnano": "7.1.0",
     "eslint": "^9.29.0",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-prettier": "5.5.3",
@@ -28,5 +30,10 @@
     "globals": "^16.2.0",
     "prettier": "3.6.2",
     "vite": "^7.0.0"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not op_mini all"
+  ]
 }
