@@ -6,19 +6,24 @@ import { defineConfig, globalIgnores } from 'eslint/config';
 
 import react from 'eslint-plugin-react';
 
+import eslintPluginPrettier from 'eslint-plugin-prettier';
+
 export default defineConfig([
   globalIgnores(['dist']),
   {
     files: ['**/*.{js,jsx}'],
+    plugins: {
+      prettier: eslintPluginPrettier,
+      react,
+    },
     extends: [
       js.configs.recommended,
       reactHooks.configs['recommended-latest'],
       reactRefresh.configs.vite,
-      react.configs.recommended,
-      'plugin:prettier/recommended', // aplica o plugin e a regra
+      //react.configs.recommended, // estava causando erro no npm run lint, removido e adicionadas regras principais manualmente
     ],
     languageOptions: {
-      ecmaVersion: 2020,
+      ecmaVersion: 'latest',
       globals: globals.browser,
       parserOptions: {
         ecmaVersion: 'latest',
@@ -26,20 +31,37 @@ export default defineConfig([
         sourceType: 'module',
       },
     },
-    plugins: ['prettier'],
+    ignores: ['node_modules/**', 'dist/**', 'out/**', 'build/**'],
     rules: {
-      'prettier/prettier': 'error', // define erro se não seguir o prettier
+      // regras principais de react/recommended:
+      'react/display-name': 'off', // Desativa o aviso de componentes sem nome, útil para arrow functions anônimas
+      'react/jsx-boolean-value': ['error', 'never'], // Exige que valores booleanos em props JSX sejam passados de forma explícita apenas se necessário (ex: <Button disabled /> em vez de <Button disabled={true} />)
+      'react/jsx-key': 'warn', // Emite aviso se esquecer de adicionar a prop 'key' em listas, o que pode causar bugs na renderização
+      'react/jsx-no-comment-textnodes': 'warn', // Emite aviso se houver comentários dentro de JSX que são interpretados incorretamente como texto
+      'react/jsx-no-duplicate-props': 'error', // Impede duplicação de props no mesmo elemento (ex: `<img alt="a" alt="b" />`)
+      'react/jsx-no-target-blank': 'off', // Permite usar target="_blank" mesmo sem rel="noreferrer", útil em casos controlados
+      'react-hooks/rules-of-hooks': 'error', // Garante que os hooks sejam usados corretamente (ex: só no topo de funções e na ordem certa)
+      'react-hooks/exhaustive-deps': 'warn', // Emite aviso se o array de dependências de um useEffect/useCallback estiver incompleto
+      'prettier/prettier': 'error', /// Aponta erro se o código não seguir as regras do Prettier (ex: indentação, aspas, vírgulas finais)
+      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }], // Permite variáveis não usadas apenas se começarem com letra maiúscula (ex: CONSTANTES ou mapeamentos globais)
+      quotes: ['error', 'single', { avoidEscape: true }], // Força uso de aspas simples, mas permite aspas duplas quando há apóstrofo na string (ex: "don't")
 
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }], // ignora variáveis que começam com letra maiúscula ou são constantes
+      // Sugere transformar elementos sem filhos em auto-fechamento (ex: `<img />` ao invés de `<img></img>`)
+      'react/self-closing-comp': [
+        'warn',
+        {
+          component: true, // para componentes React
+          html: true, // para elementos HTML
+        },
+      ],
 
-      'react/jsx-no-target-blank': 'off', // desativa regra que impede uso de target="_blank" sem rel="noreferrer"
+      // outras regras:
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },
       ], // permite exportar componentes constantes sem aviso
-      'react/prop-types': 'off', // desativa validação de prop-types, conforme instruído no projeto (Boas práticas com props, por exemplo, avisa se uma prop obrigatória (por propTypes) estiver faltando)
 
-      quotes: ['error', 'single'], // força uso de aspas simples
+      'react/prop-types': 'off', // desativa validação de prop-types, conforme instruído no projeto (Boas práticas com props, por exemplo, avisa se uma prop obrigatória (por propTypes) estiver faltando)
     },
   },
 ]);
