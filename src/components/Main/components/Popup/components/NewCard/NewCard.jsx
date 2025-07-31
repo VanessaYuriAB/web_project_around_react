@@ -69,7 +69,7 @@ function NewCard({ handleClosePopup, popup }) {
       <span
         className="popup__input-error_add place-input-error"
         id="card-name-error"
-      ></span>
+      />
       <input
         className="popup__input-form_add"
         id="link-input"
@@ -83,7 +83,7 @@ function NewCard({ handleClosePopup, popup }) {
       <span
         className="popup__input-error_add link-input-error"
         id="card-link-error"
-      ></span>
+      />
       <button
         className="popup__btn-form_add"
         type="submit"

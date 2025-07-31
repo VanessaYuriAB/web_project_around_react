@@ -66,7 +66,7 @@ function EditProfile({ handleClosePopup }) {
       <span
         className="popup__input-error_edt name-input-error"
         id="profile-name-error"
-      ></span>
+      />
       <input
         className="popup__input-form_edt"
         id="about-input"
@@ -83,7 +83,7 @@ function EditProfile({ handleClosePopup }) {
       <span
         className="popup__input-error_edt about-input-error"
         id="profile-about-error"
-      ></span>
+      />
       <button
         className="popup__btn-form_edt"
         type="submit"

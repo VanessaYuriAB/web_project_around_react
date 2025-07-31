@@ -53,7 +53,7 @@ function Main({
             className="photo profile__photo_overlay"
             type="button"
             onClick={() => onOpenPopup(editAvatarPopup)}
-          ></button>
+          />
         </div>
         <div className="infos profile__infos">
           {/*o "nome" e "sobre" são obtidos do contexto CurrentUserContext*/}
@@ -63,7 +63,7 @@ function Main({
             className="edit-btn infos__edit-btn"
             type="button"
             onClick={() => onOpenPopup(editProfilePopup)}
-          ></button>
+          />
           <h2 className="about infos__about">{currentUser.about}</h2>
         </div>
         <button
@@ -71,7 +71,7 @@ function Main({
           type="button"
           className="add-btn profile__add-btn"
           onClick={() => onOpenPopup(newCardPopup)}
-        ></button>
+        />
       </section>
 
       <section className="elements content__elements">

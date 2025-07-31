@@ -62,7 +62,7 @@ function EditAvatar({ handleClosePopup, popup }) {
       <span
         className="popup__input-error_photo photo-input-error"
         id="avatar-photo-error"
-      ></span>
+      />
       <button
         className="popup__btn-form_photo"
         type="submit"

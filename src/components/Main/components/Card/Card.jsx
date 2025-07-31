@@ -63,7 +63,7 @@ function Card({
           onClick={() => {
             handleOpenPopup(deleteConfirmationPopup);
           }}
-        ></button>
+        />
       )}
       <div className="text card__text">
         <h3 className="name card__name">{card.name}</h3>
@@ -73,7 +73,7 @@ function Card({
           type="button"
           aria-label="Curtir/descurtir cartão"
           onClick={handleLikeClick}
-        ></button>
+        />
       </div>
     </li>
   );

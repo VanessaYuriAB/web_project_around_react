@@ -57,7 +57,7 @@ export default function Popup(props) {
         type="button"
         aria-label="Botão de fechar"
         onClick={onClose}
-      ></button>
+      />
     </div>
   );
 }
