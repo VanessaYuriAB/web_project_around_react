@@ -15,6 +15,7 @@ export default defineConfig([
       reactHooks.configs['recommended-latest'],
       reactRefresh.configs.vite,
       react.configs.recommended,
+      'plugin:prettier/recommended', // aplica o plugin e a regra
     ],
     languageOptions: {
       ecmaVersion: 2020,
@@ -25,7 +26,10 @@ export default defineConfig([
         sourceType: 'module',
       },
     },
+    plugins: ['prettier'],
     rules: {
+      'prettier/prettier': 'error', // define erro se não seguir o prettier
+
       'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }], // ignora variáveis que começam com letra maiúscula ou são constantes
 
       'react/jsx-no-target-blank': 'off', // desativa regra que impede uso de target="_blank" sem rel="noreferrer"
