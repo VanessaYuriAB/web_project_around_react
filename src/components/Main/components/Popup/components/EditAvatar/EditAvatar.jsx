@@ -23,6 +23,7 @@ function EditAvatar({ handleClosePopup, popup }) {
     if (popup && validatorRef.current) {
       validatorRef.current.resetValidation();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [popup]);
 
   // 5. Hook personalizado para submissão: envio do formulário: inclui preventDefault, loading, onSubmit, onSuccess e onError: retorna a função handleSubmit e a variável de estado isLoading (para o render da solicitação à API)

@@ -24,6 +24,7 @@ function NewCard({ handleClosePopup, popup }) {
     if (popup && validatorRef.current) {
       validatorRef.current.resetValidation();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [popup]);
 
   // 5. Hook personalizado para submissão: envio do formulário: inclui preventDefault, loading, onSubmit, onSuccess e onError: recebe o evento de envio, previne o comportamento padrão do formulário e chama a função handleAddPlaceSubmit com os dados do novo cartão
