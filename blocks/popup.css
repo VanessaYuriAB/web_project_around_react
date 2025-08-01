@@ -210,7 +210,7 @@
 .popup__icon-close-btn {
   width: 40px;
   height: 40px;
-  background-image: url(../images/close-icon_40.svg);
+  background-image: url(/images/close-icon_40.svg);
   background-position: center;
   background-size: contain;
   margin-top: 146.72px;
@@ -362,7 +362,7 @@
   .popup__icon-close-btn {
     width: 26px;
     height: 26px;
-    background-image: url(../images/close-icon_26.svg);
+    background-image: url(/images/close-icon_26.svg);
     margin-top: 82.62px;
     position: relative;
     right: 10px;

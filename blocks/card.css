@@ -26,7 +26,7 @@
 .card__trash-btn {
   width: 18px;
   height: 19.3px;
-  background-image: url(../images/trash-btn.svg);
+  background-image: url(/images/trash-btn.svg);
   z-index: 1;
   position: absolute;
   top: 18px;
@@ -76,7 +76,7 @@
 }
 
 .card__like-btn {
-  background-image: url(../images/like-btn.svg);
+  background-image: url(/images/like-btn.svg);
   width: 21px;
   height: 19px;
   background-color: transparent;
@@ -89,7 +89,7 @@
 }
 
 .card__like-btn_active {
-  background-image: url(../images/like-btn-black.svg);
+  background-image: url(/images/like-btn-black.svg);
   width: 21px;
   height: 19px;
 }
