@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react';
 
-import FormValidator from '../utils/FormValidator';
+import FormValidator from '@utils/FormValidator';
 
 function useFormValidator(config) {
   const formRef = useRef(null);

@@ -1,12 +1,12 @@
 import { useRef, useContext, useEffect } from 'react';
 
-import CurrentUserContext from '../../../../../../contexts/CurrentUserContext.js';
+import CurrentUserContext from '@contexts/CurrentUserContext.js';
 
-import useFormValidator from '../../../../../../hooks/useFormValidator.js';
+import useFormValidator from '@hooks/useFormValidator.js';
 
-import { configPhoto } from '../../../../../../utils/constants.js';
+import { configPhoto } from '@utils/constants.js';
 
-import useFormSubmit from '../../../../../../hooks/useFormSubmit.js';
+import useFormSubmit from '@hooks/useFormSubmit.js';
 
 function EditAvatar({ handleClosePopup, popup }) {
   // 1. Refs para input: referência é usada para obter o valor do input quando o formulário é enviado, facilitando o acesso ao valor do input sem a necessidade de gerenciar o estado do input com useState - permitindo acessar diretamente o elemento DOM com 'current.value' - é útil para evitar re-renderizações desnecessárias do componente, já que o input não precisa ser controlado pelo estado do React - a referência é criada usando useRef, que retorna um objeto com uma propriedade 'current' que pode ser usada para armazenar o valor do input

@@ -8,7 +8,7 @@ import EditAvatar from './components/Popup/components/EditAvatar/EditAvatar';
 
 import Card from './components/Card/Card';
 
-import CurrentUserContext from '../../contexts/CurrentUserContext.js';
+import CurrentUserContext from '@contexts/CurrentUserContext.js';
 
 function Main({
   popup,

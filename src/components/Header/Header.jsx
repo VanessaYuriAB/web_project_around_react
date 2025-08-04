@@ -1,5 +1,5 @@
-import aroundLogo from '../../assets/logo.svg';
-import lineHeader from '../../assets/line-header.svg';
+import aroundLogo from '@assets/logo.svg';
+import lineHeader from '@assets/line-header.svg';
 
 function Header() {
   return (

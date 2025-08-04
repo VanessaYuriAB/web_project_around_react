@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 
-import useFormSubmit from '../../../../../../hooks/useFormSubmit';
+import useFormSubmit from '@hooks/useFormSubmit';
 
 function DeleteConfirmation({ handleClosePopup, handleCardDelete, card }) {
   // 1. Ref para o formulário

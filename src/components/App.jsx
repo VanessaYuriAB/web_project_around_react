@@ -4,9 +4,9 @@ import Footer from './Footer/Footer.jsx';
 
 import { useState, useEffect } from 'react';
 
-import myApi from '../utils/api.js';
+import myApi from '@utils/api.js';
 
-import CurrentUserContext from '../contexts/CurrentUserContext.js';
+import CurrentUserContext from '@contexts/CurrentUserContext.js';
 
 /*
 Linha comentada para prevenir duplicação ao enviar cards iniciais. Executar apenas uma vez, quando necessário enviar os dados para a API.

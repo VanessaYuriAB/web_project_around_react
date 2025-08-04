@@ -3,7 +3,7 @@ import DeleteConfirmation from '../Popup/components/DeleteConfirmation/DeleteCon
 
 import { useContext } from 'react';
 
-import CurrentUserContext from '../../../../contexts/CurrentUserContext.js';
+import CurrentUserContext from '@contexts/CurrentUserContext.js';
 
 function Card({
   card,

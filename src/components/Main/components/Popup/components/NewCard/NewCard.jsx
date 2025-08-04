@@ -1,12 +1,12 @@
 import { useContext, useRef, useEffect } from 'react';
 
-import CurrentUserContext from '../../../../../../contexts/CurrentUserContext';
+import CurrentUserContext from '@contexts/CurrentUserContext';
 
-import useFormValidator from '../../../../../../hooks/useFormValidator';
+import useFormValidator from '@hooks/useFormValidator';
 
-import { configAdd } from '../../../../../../utils/constants';
+import { configAdd } from '@utils/constants';
 
-import useFormSubmit from '../../../../../../hooks/useFormSubmit.js';
+import useFormSubmit from '@hooks/useFormSubmit.js';
 
 function NewCard({ handleClosePopup, popup }) {
   // 1. Refs para inputs: cria referências para os campos do formulário, não é necessário usar useState aqui, pois os valores serão obtidos diretamente do formulário quando o usuário enviar

@@ -1,12 +1,12 @@
 import { useState, useContext } from 'react';
 
-import CurrentUserContext from '../../../../../../contexts/CurrentUserContext.js';
+import CurrentUserContext from '@contexts/CurrentUserContext.js';
 
-import useFormValidator from '../../../../../../hooks/useFormValidator.js';
+import useFormValidator from '@hooks/useFormValidator.js';
 
-import { configEdt } from '../../../../../../utils/constants.js';
+import { configEdt } from '@utils/constants.js';
 
-import useFormSubmit from '../../../../../../hooks/useFormSubmit.js';
+import useFormSubmit from '@hooks/useFormSubmit.js';
 
 function EditProfile({ handleClosePopup }) {
   // 1. Contexto: obtém o usuário atual do contexto: assina o contexto CurrentUserContext, permitindo que o componente acesse as informações do usuário atual, como nome e descrição
