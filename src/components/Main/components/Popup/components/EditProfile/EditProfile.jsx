@@ -14,8 +14,8 @@ function EditProfile({ handleClosePopup }) {
   const { currentUser, handleUpdateUser } = userContext; // extrai o usuário atual e a função de atualização do usuário do contexto
 
   // 2. useStates: define o estado inicial do formulário com os valores do usuário atual, garantindo que o formulário seja preenchido com as informações corretas quando aberto
-  const [name, setName] = useState(currentUser.name); // adiciona variável de estado para nome e usa o nome do usuário atual como valor inicial do estado
-  const [about, setAbout] = useState(currentUser.about); // adiciona variável de estado para descrição e usa a descrição do usuário atual como valor inicial do estado
+  const [name, setName] = useState(currentUser?.name || ''); // adiciona variável de estado para nome e usa o nome do usuário atual como valor inicial do estado, caso seja undefined, usa uma string vazia
+  const [about, setAbout] = useState(currentUser?.about || ''); // adiciona variável de estado para descrição e usa a descrição do usuário atual como valor inicial do estado, caso seja undefined, usa uma string vazia
 
   // 3. Validação do formulário: este não utiliza o reset da validação, portanto não precisa do validatorRef
   const { formRef } = useFormValidator(configEdt);
