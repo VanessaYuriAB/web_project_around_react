@@ -16,7 +16,7 @@ class Api {
   };
 
   // carrega as informações de usuário do servidor
-  _getServerUserInfos = async () => {
+  _getUserInfo = async () => {
     const res = await fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers, // a solicitação GET é enviada com content-type, mas não interfere no resultado
     });
@@ -121,7 +121,7 @@ class Api {
 
   // captura cartões somente após carregar as informações do usuário no servidor
   getServerUserAndCards() {
-    return Promise.all([this._getServerUserInfos(), this._getCards()]);
+    return Promise.all([this._getUserInfo(), this._getCards()]);
   }
 }
 

@@ -331,7 +331,7 @@ useEffect(() => {
 ```js
 getServerUserAndCards() {
   return Promise.all([
-    this._getServerUserInfos(),
+    this._getUserInfo(),
     this._getCards()
   ]);
 }
