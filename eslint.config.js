@@ -31,7 +31,13 @@ export default defineConfig([
         sourceType: 'module',
       },
     },
-    ignores: ['node_modules/**', 'dist/**', 'out/**', 'build/**'],
+    ignores: [
+      'node_modules/**',
+      'dist/**',
+      'build/**',
+      'vendor/**',
+      'public/**',
+    ],
     rules: {
       // regras principais de react/recommended:
       'react/display-name': 'off', // Desativa o aviso de componentes sem nome, útil para arrow functions anônimas
@@ -42,9 +48,15 @@ export default defineConfig([
       'react/jsx-no-target-blank': 'off', // Permite usar target="_blank" mesmo sem rel="noreferrer", útil em casos controlados
       'react-hooks/rules-of-hooks': 'error', // Garante que os hooks sejam usados corretamente (ex: só no topo de funções e na ordem certa)
       'react-hooks/exhaustive-deps': 'warn', // Emite aviso se o array de dependências de um useEffect/useCallback estiver incompleto
-      'prettier/prettier': 'error', /// Aponta erro se o código não seguir as regras do Prettier (ex: indentação, aspas, vírgulas finais)
+      // Configuração do Prettier: usePrettierrc: habilita o carregamento do arquivo de configuração do Prettier (padrão: true). Pode ser útil se você estiver usando várias ferramentas que entram em conflito entre si ou não quiser misturar suas configurações do ESLint com a configuração do Prettier.
+      'prettier/prettier': [
+        'error',
+        {},
+        {
+          usePrettierrc: true, // 👈 carrega do .prettierrc
+        },
+      ], // Aponta erro se o código não seguir as regras do Prettier (ex: indentação, aspas, vírgulas finais)
       'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }], // Permite variáveis não usadas apenas se começarem com letra maiúscula (ex: CONSTANTES ou mapeamentos globais)
-      quotes: ['error', 'single', { avoidEscape: true }], // Força uso de aspas simples, mas permite aspas duplas quando há apóstrofo na string (ex: "don't")
 
       // Sugere transformar elementos sem filhos em auto-fechamento (ex: `<img />` ao invés de `<img></img>`)
       'react/self-closing-comp': [
