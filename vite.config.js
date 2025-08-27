@@ -21,7 +21,7 @@ export default defineConfig({
   },
   base: '/web_project_around_react/', // 👈 Caminho correto para GitHub Pages / Já configurado, mas não é utilizado no npm run dev, apenas para npm run build e npm run preview
   build: {
-    outDir: 'dist', // onde o Vite colocará os arquivos após o build (padrão já é "dist")
+    outDir: 'docs', // onde o Vite colocará os arquivos após o build (padrão é "dist", mas para rodar no GitHub Pages sem deploy, há a opção de gerar a partir de docs, no próprio GitHub)
     assetsDir: 'assets', //subpasta onde vão os arquivos estáticos (JS, CSS, imagens etc.)
   },
 });
