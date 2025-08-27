@@ -35,6 +35,7 @@ function Main({
   // Photo: componente de popup para edição da foto de perfil, recebe a função de fechar e a variável do estado de popup
   const editAvatarPopup = {
     children: <EditAvatar handleClosePopup={onClosePopup} popup={popup} />,
+    type: 'avatar',
   };
 
   return (
@@ -91,7 +92,7 @@ function Main({
 
       {/* se o popup não for nulo, o componente será renderizado na tela */}
       {popup && (
-        <Popup onClose={onClosePopup} popup={popup}>
+        <Popup onClose={onClosePopup} popup={popup} type={popup.type}>
           {popup.children}
         </Popup>
       )}

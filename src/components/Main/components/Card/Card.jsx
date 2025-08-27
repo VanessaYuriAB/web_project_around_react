@@ -28,7 +28,7 @@ function Card({
 
   // 5. Objetos para popups (image e trash): cada um será passado para a função handleOpenPopup,
   // Image: o popup de imagem recebe o card atual para exibir a imagem e o nome, a função handleOpenPopup é chamada quando a imagem do cartão é clicada
-  const imagePopup = { children: <ImagePopup card={card} /> };
+  const imagePopup = { children: <ImagePopup card={card} />, type: 'image' };
 
   // Trash: o popup de confirmação de exclusão recebe a função de fechar o popup, a função de deletar o popup e o objeto com os dados do card
   const deleteConfirmationPopup = {
@@ -39,6 +39,7 @@ function Card({
         card={card}
       />
     ),
+    type: 'delete',
   };
 
   // 6. Handlers: função para lidar com o clique no botão de curtir/descurtir cartão: para encapsulamento da prop e maior organização ou clareza: ela chama a função onCardLike, que é passada como prop, passando o cartão atual como argumento; isso permite que o componente pai (App) gerencie a lógica de curtir/descurtir o cartão e atualize o estado dos cartões; a função onCardLike é definida no componente App e é responsável por enviar a solicitação para a API
