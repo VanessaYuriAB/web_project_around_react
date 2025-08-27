@@ -513,9 +513,9 @@ getServerUserAndCards() {
 
 # 🎥 4. Demonstração:
 
-🎞️ Vídeo demonstrando o uso da aplicação (edição de perfil, criação/exclusão de cards, etc.) em breve.
+Vídeo do uso da aplicação, mostrando suas funcionalidades.
 
-[![. Acesse aqui]()]()
+[Assista no Loom, clique aqui ⏯️.](https://www.loom.com/share/8b5c133948d34391a54148bd0d6b48ad?sid=99d89ceb-3b42-4295-a79e-c55e1536585f)
 
 # 🚀 5. Acesse o projeto:
 
