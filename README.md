@@ -17,6 +17,8 @@ desenvolvida durante as **Sprints 13 e 14** do **bootcamp de Desenvolvimento Web
 > detalhes de implementação. Você pode acessá-lo
 > [aqui.](https://github.com/VanessaYuriAB/web_project_around_react/blob/main/README.technical.md)
 
+[![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-acesse_aqui-blue)](https://vanessayuriab.github.io/web_project_around_react/)
+
 ---
 
 ## 📌 Escopo do projeto
